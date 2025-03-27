@@ -25,61 +25,51 @@ public class EmailVerificationHelper {
         return String.valueOf(code);
     }
 
-    //sent code verification to the user
-    public void sendVerificationEmail(String userEmail, String verificationCode, EmailCallback callback) {
-        // تنفيذ الكود في Thread منفصل باستخدام ExecutorService لتجنب التأثير على واجهة المستخدم
-        executorService.execute(() -> {
+     public void sendVerificationEmail(String userEmail, String verificationCode, EmailCallback callback) {
+         executorService.execute(() -> {
             try {
-                // إعدادات SMTP للبريد الإلكتروني (الخوادم التي يتم الاتصال بها لإرسال الرسائل)
-                Properties properties = new Properties();
-                properties.put("mail.smtp.host", "smtp.gmail.com");  // تحديد خادم SMTP (هنا نستخدم Gmail)
-                properties.put("mail.smtp.port", "587");  // تحديد المنفذ (587 هو المنفذ الأكثر شيوعاً للبريد باستخدام TLS)
-                properties.put("mail.smtp.auth", "true");  // تمكين المصادقة
-                properties.put("mail.smtp.starttls.enable", "true");  // تمكين تشفير TLS للبريد
-                properties.put("mail.smtp.connectiontimeout", "5000"); // مهلة الاتصال (5 ثوانٍ)
-                properties.put("mail.smtp.timeout", "5000");           // مهلة القراءة (5 ثوانٍ)
-                properties.put("mail.smtp.writetimeout", "5000");      // مهلة الكتابة (5 ثوانٍ)
+                 Properties properties = new Properties();
+                properties.put("mail.smtp.host", "smtp.gmail.com");  
+                properties.put("mail.smtp.port", "587");  
+                properties.put("mail.smtp.auth", "true");   
+                properties.put("mail.smtp.starttls.enable", "true"); 
+                properties.put("mail.smtp.connectiontimeout", "5000"); 
+                properties.put("mail.smtp.timeout", "5000");        
+                properties.put("mail.smtp.writetimeout", "5000");      
 
-                // تهيئة الجلسة الخاصة بالبريد الإلكتروني باستخدام البيانات السابقة
-                Session session = Session.getInstance(properties, new Authenticator() {
+                 Session session = Session.getInstance(properties, new Authenticator() {
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(FROM_EMAIL, APP_PASSWORD); // بيانات حساب البريد
+                        return new PasswordAuthentication(FROM_EMAIL, APP_PASSWORD); 
                     }
                 });
 
-                // إعداد الرسالة التي سيتم إرسالها
-                Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(FROM_EMAIL));  // تعيين عنوان المرسل
-                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail)); // تعيين عنوان المستقبل
-                message.setSubject("The verification code");  // تعيين موضوع الرسالة
-                message.setText("Your code is: " + verificationCode);  // تعيين نص الرسالة الذي يتضمن الكود للتحقق
+                 Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(FROM_EMAIL));  
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail)); 
+                message.setSubject("The verification code");  
+                message.setText("Your code is: " + verificationCode); 
 
-                // إرسال البريد الإلكتروني باستخدام Transport.send()
-                try {
-                    Transport.send(message);  // إرسال الرسالة
-                    callback.onSuccess();  // إذا تم إرسال البريد بنجاح، استدعاء callback للإشارة إلى النجاح
+                 try {
+                    Transport.send(message);  
+                    callback.onSuccess();  
                 } catch (MessagingException e) {
-                    // في حالة حدوث خطأ أثناء إرسال الرسالة
-                    callback.onFailure(e);  // استدعاء callback للإشارة إلى الفشل مع التفاصيل
+                     callback.onFailure(e);  
                 }
             } catch (MessagingException e) {
-                // إذا حدث خطأ أثناء إعداد الجلسة أو أي جزء آخر من العملية
-                callback.onFailure(e);  // استدعاء callback للإشارة إلى الفشل مع التفاصيل
+                 callback.onFailure(e);  
             }
         });
     }
 
 
-    // 🔹 دمج الوظائف (توليد الرمز وإرساله)
-    public String initiateEmailVerification(String userEmail, EmailCallback callback) {
+     public String initiateEmailVerification(String userEmail, EmailCallback callback) {
         String verificationCode = generateVerificationCode();
         sendVerificationEmail(userEmail, verificationCode, callback);
         return verificationCode;
     }
 
-    // 🔹 واجهة لمعالجة ردود الفعل عند الإرسال
-    public interface EmailCallback {
+     public interface EmailCallback {
         void onSuccess();
         void onFailure(Exception e);
     }
