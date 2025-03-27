@@ -15,8 +15,8 @@ import jakarta.mail.internet.MimeMessage;
 
 public class EmailVerificationHelper {
 
-    private static final String FROM_EMAIL = "socialmediaappmobile@gmail.com"; // Email used to send code verification
-    private static final String APP_PASSWORD = "hhng yufj pfvm dsiz";  //  App Password
+    private static final String FROM_EMAIL = "yourEmail@gmail.com"; // Email used to send code verification
+    private static final String APP_PASSWORD = "password email";  //  App Password
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public String generateVerificationCode() {
