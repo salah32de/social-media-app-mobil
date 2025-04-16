@@ -1,0 +1,47 @@
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.SocialMedia" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- الألوان الرئيسية -->
+        <item name="colorPrimary">#007BFF</item> <!-- أزرق دافئ يناسب الوضعين -->
+        <item name="colorOnPrimary">#FFFFFF</item> <!-- لون النص على العنصر الأزرق -->
+        <item name="colorPrimaryContainer">#0056B3</item> <!-- أزرق غامق للحاويات -->
+        <item name="colorOnPrimaryContainer">#E1EFFF</item> <!-- لون النص على الحاوية الزرقاء -->
+
+        <!-- الألوان الثانوية -->
+        <item name="colorSecondary">#03A9F4</item> <!-- أزرق فاتح يناسب الوضعين -->
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorSecondaryContainer">#0288D1</item> <!-- أزرق غامق للحاويات -->
+        <item name="colorOnSecondaryContainer">#B3E5FC</item> <!-- لون النص على الحاوية الثانية -->
+
+        <!-- الألوان الثلاثية (Tertiary) -->
+        <item name="colorTertiary">#FF4081</item> <!-- وردي فاتح لتفاصيل ناعمة -->
+        <item name="colorOnTertiary">#000000</item>
+        <item name="colorTertiaryContainer">#F44336</item> <!-- مائل للبنفسجي الداكن -->
+        <item name="colorOnTertiaryContainer">#FFF</item> <!-- لون النص على الحاوية -->
+
+        <!-- ألوان الأخطاء -->
+        <item name="colorError">#D32F2F</item> <!-- لون أحمر قوي مناسب للوضعين -->
+        <item name="colorOnError">#FFFFFF</item>
+        <item name="colorErrorContainer">#FFCDD2</item> <!-- أحمر غامق للحاوية -->
+        <item name="colorOnErrorContainer">#B71C1C</item> <!-- لون النص على حاوية الخطأ -->
+
+        <!-- ألوان السطح (Surface) -->
+        <item name="colorSurface">#FAFAFA</item> <!-- خلفية سطح فاتحة للوضع الليلي -->
+        <item name="colorOnSurface">#212121</item> <!-- النص باللون الداكن على الخلفية الفاتحة -->
+        <item name="colorSurfaceVariant">#E0E0E0</item> <!-- خلفية سطح رمادية فاتحة -->
+        <item name="colorOnSurfaceVariant">#757575</item> <!-- النص على الخلفية الخفيفة -->
+
+        <!-- درجات ألوان السطح -->
+        <item name="colorSurfaceContainerHighest">#E0E0E0</item>
+        <item name="colorSurfaceContainerHigh">#F5F5F5</item>
+        <item name="colorSurfaceContainer">#FFFFFF</item>
+        <item name="colorSurfaceContainerLow">#F9F9F9</item>
+        <item name="colorSurfaceContainerLowest">#F0F0F0</item>
+            <item name="colorSurfaceDim"> #DCDCDC</item>
+        <item name="colorSurfaceInverse">#212121</item> <!-- لون السطح المعاكس -->
+    </style>
+
+    <style name="Theme.SocialMedia" parent="Base.Theme.SocialMedia" />
+
+</resources>

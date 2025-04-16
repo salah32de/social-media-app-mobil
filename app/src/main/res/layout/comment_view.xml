@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLayout"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:orientation="vertical"
+    android:background="?attr/colorSurfaceVariant">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background"
+        android:backgroundTint="?attr/colorSurface"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/imageUser"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/user_cicrle_duotone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/nameUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textColor="?attr/colorOnSurface"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/imageUser"
+            app:layout_constraintTop_toTopOf="@id/imageUser"
+            android:layout_marginEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/dateComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DD-MM-YYYY"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/imageUser"
+            app:layout_constraintTop_toBottomOf="@id/nameUser"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:id="@+id/textComment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="the elephant in the rome"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/imageUser"
+            app:layout_constraintStart_toStartOf="@id/imageUser"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"/>
+        <ImageView
+            android:id="@+id/imageComment"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textComment"
+
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        >
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="0dp"/>
+        <TextView
+            android:id="@+id/showReply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="show reply comment"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="0dp"/>
+        <TextView
+            android:id="@+id/likeComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Like"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textComment"
+            android:paddingEnd="14dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"/>
+        <TextView
+            android:id="@+id/reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reply"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textComment"
+            android:paddingEnd="14dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"/>
+    </LinearLayout>
+
+
+</LinearLayout>
