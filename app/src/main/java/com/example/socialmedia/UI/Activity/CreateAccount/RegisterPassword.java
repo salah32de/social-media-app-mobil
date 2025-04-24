@@ -14,7 +14,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.socialmedia.Control.AuthenticationManager;
-import com.example.socialmedia.Control.SharedPreferencesManager;
+import com.example.socialmedia.Control.RoomDatabaseManager;
+import com.example.socialmedia.SharedPreferencesHelper;
+import com.example.socialmedia.Database.LocalDatabase.Entity.UserEntity;
 import com.example.socialmedia.Model.User;
 import com.example.socialmedia.R;
 import com.example.socialmedia.UI.MainView;
@@ -65,12 +67,17 @@ public class RegisterPassword extends AppCompatActivity {
                     authManager.addUser(getActivity(),user,enterPasswordText,new AuthenticationManager.authCallBack() {
                         @Override
                         public void onSuccessful(boolean success) {
+
                             if(success){
-                                SharedPreferencesManager.LogIn(getBaseContext(),user.getId(),user.getEmail(),user);
+                                SharedPreferencesHelper.LogIn(getBaseContext(),user.getId(),user.getEmail(),user);
 
                                 Log.d("TAG: RegisterPassword","store user in sharedPreferences successfully "+user.getEmail());
                                 Intent intent=new Intent(RegisterPassword.this, MainView.class);
                                 startActivity(intent);
+                                new Thread(()->{
+                                    RoomDatabaseManager roomDatabaseManager=new RoomDatabaseManager(getBaseContext());
+                                    roomDatabaseManager.insertUser(new UserEntity(user.getId(),user.getName()));
+                                });
                                 finish();
                             }else{
                                 Toast.makeText(RegisterPassword.this, "Error in create account. try again", Toast.LENGTH_SHORT).show();
@@ -92,7 +99,7 @@ public class RegisterPassword extends AppCompatActivity {
             }
         });
 
-
+        DeleteMessageError();
     }
     public Activity getActivity() {
         return  this;
@@ -103,5 +110,30 @@ public class RegisterPassword extends AppCompatActivity {
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.onTouchEvent(event);
+    }
+
+    public void DeleteMessageError(){
+        TextInputLayout enterPasswordLayout=findViewById(R.id.enterPasswordLayout);
+        TextInputLayout confirmPasswordLayout=findViewById(R.id.confirmPasswordLayout);
+        TextInputLayout registerNameLayout=findViewById(R.id.enterNameLayout);
+
+
+        View.OnTouchListener touchListener=new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(v.getId()==registerNameLayout.getId()){
+                    registerNameLayout.setError(null);
+                }else if(v.getId()==confirmPasswordLayout.getId()){
+                    confirmPasswordLayout.setError(null);
+                }else if(v.getId()==enterPasswordLayout.getId()){
+                    enterPasswordLayout.setError(null);
+                }
+                return false;
+            }
+        };
+        enterPasswordLayout.setOnTouchListener(touchListener);
+        confirmPasswordLayout.setOnTouchListener(touchListener);
+        registerNameLayout.setOnTouchListener(touchListener);
+
     }
 }

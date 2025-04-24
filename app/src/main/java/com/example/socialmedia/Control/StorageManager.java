@@ -3,7 +3,7 @@ package com.example.socialmedia.Control;
 import android.net.Uri;
 import android.util.Log;
 
-import com.example.socialmedia.Data.Firebase.StorageDatabase.StorageFirebase;
+import com.example.socialmedia.Database.RemoteDatabase.StorageDatabase.StorageFirebase;
 
 //this class manager the StorageFirebase
 public class StorageManager {

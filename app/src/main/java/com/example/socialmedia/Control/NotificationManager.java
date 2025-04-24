@@ -1,9 +1,12 @@
 package com.example.socialmedia.Control;
 
+import android.content.Context;
 import android.util.Log;
 
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.NotificationRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.NotificationRepository;
 import com.example.socialmedia.Model.Notification;
+import com.example.socialmedia.Model.User;
+import com.example.socialmedia.SharedPreferencesHelper;
 
 import java.util.List;
 
@@ -15,12 +18,19 @@ public class NotificationManager {
         notificationRepository = new NotificationRepository();
     }
 
-    public void addNotification(Notification notification,String idUser, NotificationRepository.AddNotificationCallback addNotificationCallback) {
+    public void addNotification(Context context, Notification notification, String idUser, NotificationRepository.AddNotificationCallback addNotificationCallback) {
         notificationRepository.addNotification( notification,idUser, new NotificationRepository.AddNotificationCallback() {
             @Override
             public void addNotificationSuccess() {
                 Log.d(TAG,"addNotificationSuccess");
                 addNotificationCallback.addNotificationSuccess();
+
+                UserManager userManager=new UserManager();
+                User user= SharedPreferencesHelper.getUser(context);
+
+                userManager.UpdateInteractionCount(SharedPreferencesHelper.getUser(context).getId());
+
+
             }
 
             @Override

@@ -24,7 +24,7 @@
             android:layout_height="42dp"
             android:layout_marginEnd="8dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/user_cicrle_duotone" />
+            android:src="@drawable/search_alt_light" />
 
         <TextView
             android:id="@+id/chatUserName"

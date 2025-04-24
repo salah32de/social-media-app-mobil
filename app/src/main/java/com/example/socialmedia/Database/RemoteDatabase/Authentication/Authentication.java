@@ -1,4 +1,4 @@
-package com.example.socialmedia.Data.Firebase.Authentication;
+package com.example.socialmedia.Database.RemoteDatabase.Authentication;
 
 import android.app.Activity;
 import android.util.Log;
@@ -45,6 +45,7 @@ public class Authentication {
                             //save id that in firebase authentication in the user Realtime database
                             String id = firebaseUser.getUid();
                             user.setId(id);
+                            user.setActive(true);
                             reference.child(id).setValue(user)
                                     .addOnCompleteListener(dbTask -> {
                                         if (dbTask.isSuccessful()) {

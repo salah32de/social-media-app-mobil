@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.recyclerview)
     implementation(libs.lifecycle.process)
     testImplementation(libs.junit)
+    testImplementation(libs.monitor)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation ("com.google.firebase:firebase-database:20.2.2")
@@ -79,6 +80,10 @@ dependencies {
 
     //exoPlayer video
     implementation ("com.google.android.exoplayer:exoplayer:2.19.1")
+
+    //room database
+    implementation ("androidx.room:room-runtime:2.6.1")
+    annotationProcessor ("androidx.room:room-compiler:2.6.1")
 
 
 }

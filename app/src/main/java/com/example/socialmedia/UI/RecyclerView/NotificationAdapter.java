@@ -19,9 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.socialmedia.Control.PostManager;
-import com.example.socialmedia.Control.SharedPreferencesManager;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.PostRepository;
-import com.example.socialmedia.Model.Chat;
+import com.example.socialmedia.SharedPreferencesHelper;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.PostRepository;
 import com.example.socialmedia.Model.Notification;
 import com.example.socialmedia.Model.Post;
 import com.example.socialmedia.R;
@@ -120,7 +119,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, Profile.class);
-                    intent.putExtra(SharedPreferencesManager.USER_KEY, notification.getUser());
+                    intent.putExtra(SharedPreferencesHelper.USER_KEY, notification.getUser());
                     context.startActivity(intent);
                 }
             });
@@ -130,12 +129,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 @Override
                 public void onClick(View v) {
                     //write the code in another time to open the notification
-                    View fragment = ((AppCompatActivity) context).findViewById(R.id.showPostNotificationActivity);
-                    fragment.setVisibility(View.VISIBLE);
-                    FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-                    FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    CommentFragment commentFragment = new CommentFragment();
-                    Bundle bundle = new Bundle();
 
                     if (notification.getTypeNotification() == Notification.LIKE_POST || notification.getTypeNotification() == Notification.COMMENT_POST) {
                         PostManager postManager = new PostManager();
@@ -143,12 +136,19 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                             @Override
                             public void getPostByIdSuccess(Post post) {
-
-                                bundle.putSerializable("post", post);
-                                commentFragment.setArguments(bundle);
-                                transaction.replace(R.id.showPostNotificationActivity, commentFragment);
-                                transaction.addToBackStack(null);
-                                transaction.commit();
+                                View fragment = ((AppCompatActivity) context).findViewById(R.id.showPostNotificationActivity);
+                                if (fragment != null && fragment.getVisibility()==View.GONE) {
+                                    fragment.setVisibility(View.VISIBLE);
+                                    FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+                                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                                    CommentFragment commentFragment = new CommentFragment();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("post", post);
+                                    commentFragment.setArguments(bundle);
+                                    transaction.replace(R.id.showPostNotificationActivity, commentFragment);
+                                    transaction.addToBackStack(null);
+                                    transaction.commit();
+                                }
                             }
 
                             @Override
@@ -159,12 +159,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                     } else if (notification.getTypeNotification() == Notification.FRIEND_REQUEST || notification.getTypeNotification() == Notification.ACCEPT_FRIEND_REQUEST) {
                         Intent intent = new Intent(context, Profile.class);
-                        intent.putExtra(SharedPreferencesManager.USER_KEY, notification.getUser());
+                        intent.putExtra(SharedPreferencesHelper.USER_KEY, notification.getUser());
                         context.startActivity(intent);
 
-                    }else if(notification.getTypeNotification()==Notification.SENT_MESSAGE){
+                    } else if (notification.getTypeNotification() == Notification.SENT_MESSAGE) {
                         Intent intent = new Intent(context, MessageActivity.class);
-                        intent.putExtra(SharedPreferencesManager.USER_KEY, notification.getUser());
+                        intent.putExtra(SharedPreferencesHelper.USER_KEY, notification.getUser());
                         context.startActivity(intent);
                     }
                 }

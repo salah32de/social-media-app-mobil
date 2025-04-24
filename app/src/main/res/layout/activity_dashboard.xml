@@ -61,13 +61,15 @@
             app:cardElevation="4dp" >
 
             <TextView
+                android:id="@+id/numOfUser"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?attr/colorSurface"
                 android:gravity="center"
-                android:text="👥  users \n1200"
+                android:text="👥  users \n???"
                 android:textAlignment="center"
                 android:textSize="18sp" />
+
         </androidx.cardview.widget.CardView>
 
         <!-- CardView for Posts -->
@@ -82,11 +84,12 @@
             app:cardElevation="4dp" >
 
             <TextView
+                android:id="@+id/numOfPosts"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?attr/colorSurface"
                 android:gravity="center"
-                android:text="📝  posts \n3400"
+                android:text="📝  posts \n???"
                 android:textAlignment="center"
                 android:textSize="18sp" />
         </androidx.cardview.widget.CardView>
@@ -103,11 +106,12 @@
             app:cardElevation="4dp" >
 
             <TextView
+                android:id="@+id/numOfReport"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?attr/colorSurface"
                 android:gravity="center"
-                android:text="🚨  reports \n45"
+                android:text="🚨  reports \n???"
                 android:textAlignment="center"
                 android:textSize="18sp" />
         </androidx.cardview.widget.CardView>
@@ -179,7 +183,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:text="👥 Active users: 124"
+                    android:text="👥 Active users: ???"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="16sp" />
 

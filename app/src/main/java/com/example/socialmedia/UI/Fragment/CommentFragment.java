@@ -23,8 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
 import com.example.socialmedia.Control.CommentManager;
-import com.example.socialmedia.Control.SharedPreferencesManager;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.CommentRepository;
+import com.example.socialmedia.SharedPreferencesHelper;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.CommentRepository;
 import com.example.socialmedia.Model.Comment;
 import com.example.socialmedia.Model.Post;
 import com.example.socialmedia.Model.User;
@@ -97,7 +97,7 @@ public class CommentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        user=SharedPreferencesManager.getUser(getContext());
+        user = SharedPreferencesHelper.getUser(getContext());
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_comment, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.commentRecyclerView);
@@ -137,7 +137,7 @@ public class CommentFragment extends Fragment {
             public void onClick(View v) {
                 send.setClickable(false);
                 String text = addTextComment.getText().toString();
-                CommentHelper.addComment(getContext(),user, post, text, image, list, addTextComment);
+                CommentHelper.addComment(getContext(), user, post, text, image, list, addTextComment);
 
             }
         });
@@ -187,7 +187,7 @@ public class CommentFragment extends Fragment {
     public static class CommentHelper {
         public static Comment commentParent = null;
 
-        public static void addComment(Context context,User user, Post post, String text, ImageView image, List<Comment> list, EditText addTextComment) {
+        public static void addComment(Context context, User user, Post post, String text, ImageView image, List<Comment> list, EditText addTextComment) {
             if (!text.isEmpty() || image.getVisibility() != View.GONE) {
                 Uri uri = null;
                 if (image.getVisibility() != View.GONE) {
@@ -203,7 +203,7 @@ public class CommentFragment extends Fragment {
                     @Override
                     public void addCommentSuccess() {
                         Toast.makeText(context, "Send comment successful", Toast.LENGTH_SHORT).show();
-                        comment.setUserCreateComment(SharedPreferencesManager.getUser(context));
+                        comment.setUserCreateComment(SharedPreferencesHelper.getUser(context));
 
                         if (commentParent == null) {
                             list.add(0, comment);
@@ -242,6 +242,12 @@ public class CommentFragment extends Fragment {
         super.onDestroy();
         try {
             ((AppCompatActivity) getContext()).findViewById(R.id.CommentFragment).setVisibility(View.GONE);
+        } catch (Exception e) {
+
+        }
+        try {
+            View fragment = ((AppCompatActivity) getContext()).findViewById(R.id.showPostNotificationActivity);
+            fragment.setVisibility(View.GONE);
         } catch (Exception e) {
 
         }

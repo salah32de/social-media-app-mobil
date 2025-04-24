@@ -1,4 +1,4 @@
-package com.example.socialmedia.Data.Firebase.RealtimeDatabase;
+package com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase;
 
 import com.example.socialmedia.Control.UserManager;
 import com.example.socialmedia.Model.Notification;

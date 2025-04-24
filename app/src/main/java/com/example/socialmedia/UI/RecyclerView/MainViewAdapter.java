@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.socialmedia.Control.SharedPreferencesManager;
+import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Model.Post;
 import com.example.socialmedia.Model.User;
 import com.example.socialmedia.R;
@@ -85,7 +85,7 @@ public class MainViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
         public void bind(Context context) {
-            User user = SharedPreferencesManager.getUser(context);
+            User user = SharedPreferencesHelper.getUser(context);
 
             if (!user.getPhotoProfile().isEmpty()) {
                 Glide.with(context).load(user.getPhotoProfile()).circleCrop().into(seeProfile);
@@ -95,8 +95,8 @@ public class MainViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, Profile.class);
-                    User user = SharedPreferencesManager.getUser(context);
-                    intent.putExtra(SharedPreferencesManager.USER_KEY, user);
+                    User user = SharedPreferencesHelper.getUser(context);
+                    intent.putExtra(SharedPreferencesHelper.USER_KEY, user);
                     (context).startActivity(intent);
                 }
             });

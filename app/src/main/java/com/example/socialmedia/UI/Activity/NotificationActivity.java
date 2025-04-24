@@ -1,7 +1,6 @@
 package com.example.socialmedia.UI.Activity;
 
 import android.content.Intent;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialmedia.Control.NotificationManager;
-import com.example.socialmedia.Control.SharedPreferencesManager;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.NotificationRepository;
+import com.example.socialmedia.SharedPreferencesHelper;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.NotificationRepository;
 import com.example.socialmedia.Model.Notification;
 import com.example.socialmedia.Model.User;
 import com.example.socialmedia.R;
@@ -30,7 +29,7 @@ public class NotificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        User user= SharedPreferencesManager.getUser(getApplicationContext());
+        User user= SharedPreferencesHelper.getUser(getApplicationContext());
         RecyclerView recyclerView=findViewById(R.id.recyclerViewNotification);
         recyclerView.setPaddingRelative(9,9,9,9);
         List<Notification> list=new ArrayList<>();

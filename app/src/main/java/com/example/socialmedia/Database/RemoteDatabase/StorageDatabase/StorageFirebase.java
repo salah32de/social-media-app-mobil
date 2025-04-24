@@ -1,4 +1,4 @@
-package com.example.socialmedia.Data.Firebase.StorageDatabase;
+package com.example.socialmedia.Database.RemoteDatabase.StorageDatabase;
 
 import android.net.Uri;
 import android.util.Log;

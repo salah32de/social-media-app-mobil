@@ -26,12 +26,19 @@ public class User implements Serializable        {
     @SerializedName("name index")
     private List<String> listNameIndex;//list of name index for search
     @SerializedName("isOnline")
-    private boolean isOnline=false;
+    private boolean isOnline;
     @SerializedName("isActive")
     private boolean isActive;
 
     @SerializedName("isAdmin")
     private boolean isAdmin;
+    @SerializedName("interactionCount")
+    private int interactionCount = 0;
+    @SerializedName("lastSeenTime")
+    private long lastSeenTime = 0;
+
+    @SerializedName("totalActiveTime")
+        private long totalActiveTime = 0;
 
     public User(){}
 
@@ -42,6 +49,36 @@ public class User implements Serializable        {
         this.photoProfile = photo;
         this.isActive=true;
         this.isAdmin=false;
+        interactionCount=0;
+        lastSeenTime=0;
+        totalActiveTime =0;
+        isOnline=false;
+        numNotificationUnread=0;
+        listNameIndex=null;
+    }
+
+    public int getInteractionCount() {
+        return interactionCount;
+    }
+
+    public void setInteractionCount(int interactionCount) {
+        this.interactionCount = interactionCount;
+    }
+
+    public long getLastSeenTime() {
+        return lastSeenTime;
+    }
+
+    public void setLastSeenTime(long lastSeenTime) {
+        this.lastSeenTime = lastSeenTime;
+    }
+
+    public long getTotalActiveTime() {
+        return totalActiveTime;
+    }
+
+    public void setTotalActiveTime(long totalActiveTime) {
+        this.totalActiveTime = totalActiveTime;
     }
 
     public boolean isAdmin() {

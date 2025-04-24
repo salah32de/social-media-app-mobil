@@ -4,16 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
-import androidx.core.content.ContextCompat;
-
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.CommentRepository;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.NotificationRepository;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.PostRepository;
-import com.example.socialmedia.Data.Firebase.StorageDatabase.StorageFirebase;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.CommentRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.NotificationRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.PostRepository;
+import com.example.socialmedia.Database.RemoteDatabase.StorageDatabase.StorageFirebase;
 import com.example.socialmedia.Model.Comment;
 import com.example.socialmedia.Model.Notification;
 import com.example.socialmedia.Model.Post;
 import com.example.socialmedia.Model.User;
+import com.example.socialmedia.SharedPreferencesHelper;
 
 import java.util.List;
 
@@ -116,9 +115,9 @@ public class CommentManager {
             public void addLikeInCommentSuccess(int nmbLike) {
                 Log.d(TAG, "add like in comment is successful nmbLike=" + nmbLike);
                 NotificationManager notificationManager=new NotificationManager();
-                User user=SharedPreferencesManager.getUser(context);
+                User user= SharedPreferencesHelper.getUser(context);
                 Notification notification=new Notification(user.getId(),comment.getIdComment(),Notification.LIKE_COMMENT);
-                notificationManager.addNotification(notification,post.getUserCreatePost().getId(), new NotificationRepository.AddNotificationCallback() {
+                notificationManager.addNotification(context,notification,post.getUserCreatePost().getId(), new NotificationRepository.AddNotificationCallback() {
                     @Override
                     public void addNotificationSuccess() {
                         Log.d(TAG,"add notification success");

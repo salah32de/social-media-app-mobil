@@ -2,9 +2,9 @@ package com.example.socialmedia.Control;
 
 import android.util.Log;
 
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.ChatRepository;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.MessageRepository;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.UserRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ChatRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.MessageRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.UserRepository;
 import com.example.socialmedia.Model.Chat;
 import com.example.socialmedia.Model.User;
 

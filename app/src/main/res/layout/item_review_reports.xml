@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
-    android:background="?attr/colorSurface"
+    android:backgroundTint="?attr/colorSurface"
     app:cardCornerRadius="12dp"
+    android:layout_margin="6dp"
     app:cardElevation="4dp">
 
 
@@ -23,6 +24,15 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
+
+        <TextView
+            android:id="@+id/idUserReporter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="from: user123"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="14sp" />
+
         <TextView
             android:id="@+id/report_category"
             android:layout_width="wrap_content"
@@ -32,13 +42,6 @@
             android:textSize="14sp" />
 
 
-        <TextView
-            android:id="@+id/report_from"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-                android:text="from: user123"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/report_time"
@@ -59,7 +62,7 @@
             android:textSize="14sp" />
 
 
-         <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/postLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -295,7 +298,7 @@
             android:layout_gravity="end"
             android:layout_marginBottom="12dp"
             android:text="show item reported"
-            android:textColor="@color/green"/>
+            android:textColor="@color/green" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -309,7 +312,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="#9E9E9E"
-                android:text="delete report"
+                android:text="ignor report"
                 android:textColor="#FFF" />
 
             <Button

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,11 +16,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.socialmedia.Control.AuthenticationManager;
 import com.example.socialmedia.Control.PostManager;
-import com.example.socialmedia.Control.SharedPreferencesManager;
-import com.example.socialmedia.Control.UserManager;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.UserRepository;
+import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Model.Post;
 import com.example.socialmedia.Model.User;
 import com.example.socialmedia.R;
@@ -47,7 +43,7 @@ public class MainView extends AppCompatActivity {
 
         setContentView(R.layout.activity_main_view);
 
-        user = SharedPreferencesManager.getUser(getBaseContext());
+        user = SharedPreferencesHelper.getUser(getBaseContext());
 
 
         ImageView notificationIcon = findViewById(R.id.notificationIcon);

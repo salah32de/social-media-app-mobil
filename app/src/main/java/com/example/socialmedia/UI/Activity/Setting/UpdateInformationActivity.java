@@ -15,11 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
-import com.example.socialmedia.Control.SharedPreferencesManager;
+import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Control.StorageManager;
 import com.example.socialmedia.Control.UserManager;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.UserRepository;
-import com.example.socialmedia.Data.Firebase.StorageDatabase.StorageFirebase;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.UserRepository;
+import com.example.socialmedia.Database.RemoteDatabase.StorageDatabase.StorageFirebase;
 import com.example.socialmedia.Model.User;
 import com.example.socialmedia.R;
 
@@ -38,7 +38,7 @@ public class UpdateInformationActivity extends AppCompatActivity {
         ImageView back = findViewById(R.id.back);
         back.setOnClickListener(v -> finish());
 
-        User user = SharedPreferencesManager.getUser(getBaseContext());
+        User user = SharedPreferencesHelper.getUser(getBaseContext());
 
         ImageView imageProfile = findViewById(R.id.imageProfile);
         TextView nameUser = findViewById(R.id.editName);
@@ -74,7 +74,7 @@ public class UpdateInformationActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void value) {
 
-                                    SharedPreferencesManager.saveUser(user, getBaseContext());
+                                    SharedPreferencesHelper.saveUser(user, getBaseContext());
                                     Toast.makeText(UpdateInformationActivity.this, "edit information successful", Toast.LENGTH_SHORT).show();
                                     finish();
 
@@ -100,7 +100,7 @@ public class UpdateInformationActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void value) {
 
-                            SharedPreferencesManager.saveUser(user, getBaseContext());
+                            SharedPreferencesHelper.saveUser(user, getBaseContext());
                             Toast.makeText(UpdateInformationActivity.this, "edit information successful", Toast.LENGTH_SHORT).show();
                             finish();
 

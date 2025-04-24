@@ -29,14 +29,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/enterEmailLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/enterPasswordLayout"
-        android:paddingStart="22dp"
-        android:paddingEnd="22dp"
-        android:paddingTop="6dp">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/enterEmailLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/enterPasswordLayout"
+            android:paddingStart="22dp"
+            android:paddingEnd="22dp"
+            android:paddingTop="6dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/enterEmail"

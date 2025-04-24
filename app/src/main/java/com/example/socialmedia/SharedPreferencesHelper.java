@@ -1,20 +1,22 @@
-package com.example.socialmedia.Control;
+package com.example.socialmedia;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.socialmedia.Model.User;
 import com.google.gson.Gson;
 
-public class SharedPreferencesManager {
+public class SharedPreferencesHelper {
+    private static final String TAG = "TAG: SharedPreferencesHelper";
 
     public static final String USER_KEY = "user";    //the key of shared preferences
     public static final String DARK_MODE = "darkMode"; //the of the type mode in shared preference
     public static final String EMAIL = "email";
     public static final String ID = "id";
-    private static final String LOG_IN = "logIn";
+    public static final String LOG_IN = "logIn";
 
-    public SharedPreferencesManager(Context context, String key) {
+    public SharedPreferencesHelper(Context context, String key) {
 
     }
 
@@ -86,6 +88,7 @@ public class SharedPreferencesManager {
         SharedPreferences sp = context.getSharedPreferences(LOG_IN, Context.MODE_PRIVATE);
         String email = sp.getString(EMAIL, "");
         String id = sp.getString(ID, "");
+        Log.d(TAG, "isLogIn: "+(!email.isEmpty() && !id.isEmpty()));
         return !email.isEmpty() && !id.isEmpty(); // 🔹 التأكد من أن كلاهما موجود
     }
 

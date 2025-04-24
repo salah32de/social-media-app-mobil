@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".Control.Myapp"
+        android:name=".Myapp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -19,16 +19,32 @@
         android:theme="@style/Theme.SocialMedia"
         tools:targetApi="31">
         <activity
+            android:name=".UI.Activity.FirstActivity"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".UI.Activity.Setting.SavedPosts"
+            android:exported="false" />
+        <activity
+            android:name=".UI.Dashboard.PostsManagement"
+            android:exported="false" />
+        <activity
             android:name=".UI.Dashboard.UpdateAdmenInformation"
             android:exported="false" />
         <activity
-            android:name=".UI.Dashboard.AdminProfileDashboard"
+            android:name=".UI.Dashboard.AdminProfile"
             android:exported="false" />
         <activity
             android:name=".UI.Dashboard.ReviewReports"
             android:exported="false" />
         <activity
-            android:name=".UI.Dashboard.UserManagment"
+            android:name=".UI.Dashboard.UserManagement"
             android:exported="false" />
         <activity
             android:name=".UI.Dashboard.Dashboard"
@@ -50,13 +66,7 @@
             android:exported="false" />
         <activity
             android:name=".UI.MainView"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".UI.Activity.CreateAccount.RegisterPassword"
             android:exported="false" />
@@ -72,12 +82,8 @@
             android:exported="false" />
         <activity
             android:name=".UI.Activity.LogIn.LogIn"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

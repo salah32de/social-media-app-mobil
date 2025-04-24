@@ -13,10 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.socialmedia.Control.AuthenticationManager;
-import com.example.socialmedia.Control.PostManager;
-import com.example.socialmedia.Control.SharedPreferencesManager;
+import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Control.UserManager;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.UserRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.UserRepository;
 import com.example.socialmedia.Model.User;
 import com.example.socialmedia.R;
 import com.example.socialmedia.UI.Activity.LogIn.LogIn;
@@ -28,11 +27,11 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        user= SharedPreferencesManager.getUser(getBaseContext());
+        user= SharedPreferencesHelper.getUser(getBaseContext());
 
 
         Switch s = findViewById(R.id.swithMode);
-        if (SharedPreferencesManager.getTypeMode(getBaseContext())) {
+        if (SharedPreferencesHelper.getTypeMode(getBaseContext())) {
             s.setChecked(true);
         } else {
             s.setChecked(false);
@@ -42,11 +41,11 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    SharedPreferencesManager.setTypeMode(getBaseContext(), true);
+                    SharedPreferencesHelper.setTypeMode(getBaseContext(), true);
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
                 } else {
-                    SharedPreferencesManager.setTypeMode(getBaseContext(), false);
+                    SharedPreferencesHelper.setTypeMode(getBaseContext(), false);
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
                 }
@@ -71,7 +70,7 @@ public class SettingActivity extends AppCompatActivity {
                 userManager.UpdateUser(user, new UserRepository.UserCallBack<Void>() {
                     @Override
                     public void onSuccess(Void value) {
-                        SharedPreferencesManager.LogOut(getBaseContext());
+                        SharedPreferencesHelper.LogOut(getBaseContext());
 
                         Intent intent = new Intent(getBaseContext(), LogIn.class);
                         startActivity(intent);
@@ -94,7 +93,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                User user = SharedPreferencesManager.getUser(getBaseContext());
+                User user = SharedPreferencesHelper.getUser(getBaseContext());
 
                 UserManager userManager = new UserManager();
                 userManager.DeleteUser(user.getId(), new UserRepository.UserCallBack() {
@@ -105,7 +104,7 @@ public class SettingActivity extends AppCompatActivity {
                         AuthenticationManager authenticationManager = new AuthenticationManager(SettingActivity.this);
                         authenticationManager.DeleteUser();
 
-                        SharedPreferencesManager.LogOut(getBaseContext());
+                        SharedPreferencesHelper.LogOut(getBaseContext());
                         Intent intent = new Intent(getBaseContext(), LogIn.class);
                         startActivity(intent);
                         finish();
@@ -131,6 +130,15 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getApplication(),UpdatePassword.class);
+                startActivity(intent);
+            }
+        });
+
+        TextView savedPosts=findViewById(R.id.savedPosts);
+        savedPosts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(SettingActivity.this,SavedPosts.class);
                 startActivity(intent);
             }
         });

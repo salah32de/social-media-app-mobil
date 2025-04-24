@@ -18,28 +18,28 @@
       </SelectionState>
       <SelectionState runConfigName="LogIn">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-04-08T12:15:44.417194600Z">
+        <DropdownSelection timestamp="2025-04-20T17:09:53.010760100Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="Default" identifier="serial=192.168.8.105:5555;connection=fe27b47c" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\i\.android\avd\Medium_Phone_Edited_1_API_34.avd" />
             </handle>
           </Target>
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="RegisterEmail">
+      <SelectionState runConfigName="useAppContext()">
         <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="Profile">
-        <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-02-23T22:45:31.459006400Z">
+        <DropdownSelection timestamp="2025-04-16T22:09:31.813950900Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="Default" identifier="serial=10.38.224.77:5555;connection=16966d65" />
+              <DeviceId pluginId="Default" identifier="serial=10.36.249.33:5555;connection=30cbba8c" />
             </handle>
           </Target>
         </DropdownSelection>
         <DialogSelection />
+      </SelectionState>
+      <SelectionState runConfigName="testDeleteReportById_success()">
+        <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
   </component>

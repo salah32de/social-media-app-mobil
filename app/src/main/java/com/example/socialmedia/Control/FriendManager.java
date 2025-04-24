@@ -2,7 +2,7 @@ package com.example.socialmedia.Control;
 
 import android.util.Log;
 
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.FriendRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.FriendRepository;
 import com.example.socialmedia.Model.Friend;
 import com.example.socialmedia.Model.User;
 

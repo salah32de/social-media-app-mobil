@@ -1,10 +1,11 @@
 package com.example.socialmedia.Control;
 
+import android.content.Context;
 import android.util.Log;
 
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.ChatRepository;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.MessageRepository;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.NotificationRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ChatRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.MessageRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.NotificationRepository;
 import com.example.socialmedia.Model.Chat;
 import com.example.socialmedia.Model.Message;
 import com.example.socialmedia.Model.Notification;
@@ -19,7 +20,7 @@ public class MessageManager {
         messageRepository = new MessageRepository();
     }
 
-    public void SendMessage(Chat chat, Message message,MessageRepository.SendMessageCallBack callBack) {
+    public void SendMessage(Context context, Chat chat, Message message, MessageRepository.SendMessageCallBack callBack) {
 
         ChatManager chatManager = new ChatManager();
         chatManager.UpdateChat(chat, new ChatRepository.UpdateChatCallBack() {
@@ -34,7 +35,7 @@ public class MessageManager {
 
                         Notification notification=new Notification(message.getReceiverId(),chat.getIdChat(),Notification.SENT_MESSAGE);
                         NotificationManager notificationManager=new NotificationManager();
-                        notificationManager.addNotification(notification, message.getSenderId(), new NotificationRepository.AddNotificationCallback() {
+                        notificationManager.addNotification(context,notification, message.getSenderId(), new NotificationRepository.AddNotificationCallback() {
                             @Override
                             public void addNotificationSuccess() {
                                 Log.d(TAG,"add notification success");

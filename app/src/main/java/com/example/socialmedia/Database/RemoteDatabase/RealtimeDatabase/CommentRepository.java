@@ -1,6 +1,4 @@
-package com.example.socialmedia.Data.Firebase.RealtimeDatabase;
-
-import android.util.Log;
+package com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

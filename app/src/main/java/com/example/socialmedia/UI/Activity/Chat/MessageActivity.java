@@ -22,11 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.socialmedia.Control.ChatManager;
 import com.example.socialmedia.Control.MessageManager;
-import com.example.socialmedia.Control.SharedPreferencesManager;
+import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Control.StorageManager;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.ChatRepository;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.MessageRepository;
-import com.example.socialmedia.Data.Firebase.StorageDatabase.StorageFirebase;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ChatRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.MessageRepository;
+import com.example.socialmedia.Database.RemoteDatabase.StorageDatabase.StorageFirebase;
 import com.example.socialmedia.Model.Chat;
 import com.example.socialmedia.Model.Message;
 import com.example.socialmedia.Model.User;
@@ -79,8 +79,8 @@ public class MessageActivity extends AppCompatActivity {
 
         messageList = new ArrayList<>();
 
-        receivedUser = (User) getIntent().getSerializableExtra(SharedPreferencesManager.USER_KEY);
-        senderUser = SharedPreferencesManager.getUser(getBaseContext());
+        receivedUser = (User) getIntent().getSerializableExtra(SharedPreferencesHelper.USER_KEY);
+        senderUser = SharedPreferencesHelper.getUser(getBaseContext());
 
 
         chat = (Chat) getIntent().getSerializableExtra(Chat.CHAT_KEY);
@@ -203,7 +203,7 @@ public class MessageActivity extends AppCompatActivity {
         User u = chat.getUserReceiver();
         chat.setUserReceiver(null);
         MessageManager messageManager = new MessageManager();
-        messageManager.SendMessage(chat, message, new MessageRepository.SendMessageCallBack() {
+        messageManager.SendMessage(getBaseContext(),chat, message, new MessageRepository.SendMessageCallBack() {
 
             @Override
             public void onSuccess(String idMessage) {

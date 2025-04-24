@@ -25,10 +25,11 @@ import com.bumptech.glide.Glide;
 import com.example.socialmedia.Control.FriendManager;
 import com.example.socialmedia.Control.NotificationManager;
 import com.example.socialmedia.Control.PostManager;
-import com.example.socialmedia.Control.SharedPreferencesManager;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.FriendRepository;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.NotificationRepository;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.PostRepository;
+import com.example.socialmedia.Control.RoomDatabaseManager;
+import com.example.socialmedia.SharedPreferencesHelper;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.FriendRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.NotificationRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.PostRepository;
 import com.example.socialmedia.Model.Friend;
 import com.example.socialmedia.Model.Notification;
 import com.example.socialmedia.Model.Post;
@@ -46,6 +47,7 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executors;
 
 public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -125,7 +127,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void bind(User userProfile, Context context) {
-            User user = SharedPreferencesManager.getUser(context);
+            User user = SharedPreferencesHelper.getUser(context);
 
             FriendManager friendManager = new FriendManager();
             showFriendRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
@@ -171,7 +173,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(context, MessageActivity.class);
-                        intent.putExtra(SharedPreferencesManager.USER_KEY, userProfile);
+                        intent.putExtra(SharedPreferencesHelper.USER_KEY, userProfile);
                         (context).startActivity(intent);
                     }
                 });
@@ -238,7 +240,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                             }
                             NotificationManager notificationManager = new NotificationManager();
                             Notification notification = new Notification(user.getId(), userProfile.getId(), (v.getId() == R.id.addFriend) ? Notification.FRIEND_REQUEST : Notification.ACCEPT_FRIEND_REQUEST);
-                            notificationManager.addNotification(notification, userProfile.getId(), new NotificationRepository.AddNotificationCallback() {
+                            notificationManager.addNotification(context,notification, userProfile.getId(), new NotificationRepository.AddNotificationCallback() {
                                 @Override
                                 public void addNotificationSuccess() {
                                 }
@@ -386,12 +388,12 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             like.setText(post.getLikes() + "");
             comment.setText(post.getNumComments() + "");
 
-            if (!post.getUserCreatePost().equals(SharedPreferencesManager.getUser(context))) {
+            if (!post.getUserCreatePost().equals(SharedPreferencesHelper.getUser(context))) {
                 imageProfile.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(context, Profile.class);
-                        intent.putExtra(SharedPreferencesManager.USER_KEY, post.getUserCreatePost());
+                        intent.putExtra(SharedPreferencesHelper.USER_KEY, post.getUserCreatePost());
                         (context).startActivity(intent);
                     }
                 });
@@ -444,10 +446,11 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             menuSitting.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!post.getUserCreatePost().equals(SharedPreferencesManager.getUser(context)))
-                        reportPostLayout.setVisibility(View.VISIBLE);
-                    else
+                    if (post.getUserCreatePost().equals(SharedPreferencesHelper.getUser(context))|| SharedPreferencesHelper.getUser(context).isAdmin())
                         deletePostLayout.setVisibility(View.VISIBLE);
+                    else
+                        reportPostLayout.setVisibility(View.VISIBLE);
+
                 }
             });
 
@@ -497,8 +500,20 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
             });
 
-        }
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Executors.newSingleThreadExecutor().execute(()->{
+                                RoomDatabaseManager roomDatabaseManager=new RoomDatabaseManager(context);
+                                roomDatabaseManager.SavePostInLocalDB(post);
 
+                            });
+                    Toast.makeText(context, "save post successful", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+        }
 
     }
 

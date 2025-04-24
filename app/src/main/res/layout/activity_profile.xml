@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurfaceVariant"
+
     >
 
     <androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,7 @@
         android:overScrollMode="never"
         android:background="?attr/colorSurfaceVariant"
             android:visibility="gone"
+
         />
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/reportFragment"

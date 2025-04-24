@@ -2,9 +2,7 @@ package com.example.socialmedia.UI.Activity;
 
 import static android.view.View.GONE;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -15,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialmedia.Control.PostManager;
-import com.example.socialmedia.Control.SharedPreferencesManager;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.PostRepository;
+import com.example.socialmedia.SharedPreferencesHelper;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.PostRepository;
 import com.example.socialmedia.Model.Post;
 import com.example.socialmedia.Model.User;
 import com.example.socialmedia.R;
@@ -34,7 +32,7 @@ public class Profile extends AppCompatActivity {
 
         postProfileRecyclerView = findViewById(R.id.postProfileRecyclerView);
         postProfileRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        User user = (User) getIntent().getSerializableExtra(SharedPreferencesManager.USER_KEY);
+        User user = (User) getIntent().getSerializableExtra(SharedPreferencesHelper.USER_KEY);
 
         PostManager postManager = new PostManager();
         postManager.getPostsUser(user, new PostRepository.GetPostsUserCallback() {

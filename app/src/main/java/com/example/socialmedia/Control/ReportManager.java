@@ -2,7 +2,7 @@ package com.example.socialmedia.Control;
 
 import android.util.Log;
 
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.ReportRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ReportRepository;
 import com.example.socialmedia.Model.Report;
 
 import java.util.List;
@@ -44,5 +44,54 @@ public class ReportManager {
             }
         });
     }
+
+    public void DeleteReportById(String reportId,ReportRepository.DeleteReportByIdCallback callback){
+        repository.DeleteReportById(reportId, new ReportRepository.DeleteReportByIdCallback() {
+            @Override
+            public void deleteReportByIdSuccess() {
+                Log.d(TAG,"delete report by id success .report id: "+reportId);
+                callback.deleteReportByIdSuccess();
+            }
+
+            @Override
+            public void deleteReportByIdFailure(Exception e) {
+                Log.d(TAG,"delete report by id failure .error: "+e.getMessage());
+                callback.deleteReportByIdFailure(e);
+            }
+        });
+    }
+
+    public void GetNumOfReport(ReportRepository.GetNumOfReportCallback callback){
+        repository.GetNumOfReport(new ReportRepository.GetNumOfReportCallback() {
+            @Override
+            public void getNumOfReportSuccess(long numOfReport) {
+                Log.d(TAG, "get num of report success .num of report: " + numOfReport);
+                callback.getNumOfReportSuccess(numOfReport);
+
+            }
+
+            @Override
+            public void getNumOfReportFailure(Exception e) {
+                Log.d(TAG,"get num of report failure .error: "+e.getMessage());
+                callback.getNumOfReportFailure(e);
+            }
+        });
+    }
+
+    public void NumReportOfToday(ReportRepository.NumReportOfToday callback){
+        repository.NumReportOfToday(new ReportRepository.NumReportOfToday() {
+            @Override
+            public void onSuccess(long num) {
+                Log.d(TAG, "get num of report of today success .num of report: " + num);
+                callback.onSuccess(num);
+            }
+            @Override
+            public void onFailure(Exception e) {
+                Log.d(TAG, "get num of report of today failure .error: " + e.getMessage());
+                callback.onFailure(e);
+            }
+        });
+    }
+
 
 }

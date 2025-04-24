@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialmedia.Control.ReportManager;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.ReportRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ReportRepository;
 import com.example.socialmedia.Model.Report;
 import com.example.socialmedia.Model.User;
 import com.example.socialmedia.R;

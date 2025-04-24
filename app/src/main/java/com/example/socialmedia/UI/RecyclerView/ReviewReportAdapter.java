@@ -20,10 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.socialmedia.Control.PostManager;
-import com.example.socialmedia.Control.SharedPreferencesManager;
+import com.example.socialmedia.Control.ReportManager;
+import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Control.UserManager;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.PostRepository;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.UserRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.PostRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ReportRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.UserRepository;
 import com.example.socialmedia.Model.Post;
 import com.example.socialmedia.Model.Report;
 import com.example.socialmedia.Model.User;
@@ -42,7 +44,7 @@ import java.util.TimeZone;
 
 public class ReviewReportAdapter extends RecyclerView.Adapter<ReviewReportAdapter.ReviewReportViewHolder> {
 
-    private List<Report> reportList;
+    private static List<Report> reportList;
     private Activity context;
 
     public ReviewReportAdapter(Activity context, List<Report> reportList) {
@@ -70,23 +72,23 @@ public class ReviewReportAdapter extends RecyclerView.Adapter<ReviewReportAdapte
         return 0;
     }
 
-    public static class ReviewReportViewHolder extends RecyclerView.ViewHolder {
-        private TextView reportType, reportCategory, reportFrom, reportTime, reportTarget, showItemReported;
+    public class ReviewReportViewHolder extends RecyclerView.ViewHolder {
+        private TextView reportType, reportCategory, idUserReporter, reportTime, reportTarget, showItemReported;
         private Button btnIgnore, btnBlock;
         private View postLayout;
 
 
         private ImageView imageProfile, menuSitting, imagePost;
-        private  PlayerView videoPost;
-        private   TextView nameUser, datePublish, textPost;
-        private  TextView like, comment, save;
-        private   SimpleExoPlayer player;
+        private PlayerView videoPost;
+        private TextView nameUser, datePublish, textPost;
+        private TextView like, comment, save;
+        private SimpleExoPlayer player;
 
         public ReviewReportViewHolder(@NonNull View itemView) {
             super(itemView);
             reportType = itemView.findViewById(R.id.report_item_type);
             reportCategory = itemView.findViewById(R.id.report_category);
-            reportFrom = itemView.findViewById(R.id.report_from);
+            idUserReporter = itemView.findViewById(R.id.idUserReporter);
             reportTime = itemView.findViewById(R.id.report_time);
             reportTarget = itemView.findViewById(R.id.report_target);
             btnIgnore = itemView.findViewById(R.id.btn_ignore);
@@ -114,14 +116,15 @@ public class ReviewReportAdapter extends RecyclerView.Adapter<ReviewReportAdapte
             postLayout.setVisibility(View.GONE);
 
 
-            reportType.setText("report of: "+String.valueOf(report.getReportItem()));
-            reportCategory.setText("type rerpot: "+String.valueOf(report.getReportCategory()));
-            reportFrom.setText("from: "+report.getReporterUserId());
-            reportTime.setText("datetime: "+convertMillisToDateTime(report.getReportTimestamp()));
-            reportTarget.setText("reason write the report: "+report.getReportContent());
+            reportType.setText("report of: " + String.valueOf(report.getReportItem()));
+            reportCategory.setText("type rerpot: " + String.valueOf(report.getReportCategory()));
+            idUserReporter.setText("id user: " + report.getReporterUserId());
+            reportTime.setText("datetime: " + convertMillisToDateTime(report.getReportTimestamp()));
+            reportTarget.setText("reason write the report: " + report.getReportContent());
 
 
             if (report.getReportItem().equals(Report.ReportItem.POST)) {
+                btnBlock.setText("delete post");
                 showItemReported.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -184,9 +187,48 @@ public class ReviewReportAdapter extends RecyclerView.Adapter<ReviewReportAdapte
                             }
                         });
 
+
                     }
                 });
+
+
+                btnBlock.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        PostManager postManager = new PostManager();
+                        postManager.GetPostById(report.getReportedItemId(), new PostRepository.GetPostByIdCallback() {
+
+                            @Override
+                            public void getPostByIdSuccess(Post post) {
+                                postManager.DeletePostById(post.getIdPost(), post, new PostRepository.DeletePostCallBack() {
+                                    @Override
+                                    public void deletePostSuccess() {
+                                        Toast.makeText(context, "delete post is success", Toast.LENGTH_SHORT).show();
+                                        btnIgnore.callOnClick();
+                                    }
+
+                                    @Override
+                                    public void deletePostsFailure(Exception e) {
+                                        Toast.makeText(context, "delete post is failure .try again another time", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void getPostByIdFailure(Exception e) {
+                                Toast.makeText(context, "delete post is failure .try again another time", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+
+
+                    }
+                });
+
             } else {
+                btnBlock.setText("ban");
                 showItemReported.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -196,7 +238,7 @@ public class ReviewReportAdapter extends RecyclerView.Adapter<ReviewReportAdapte
                             @Override
                             public void onSuccess(User value) {
                                 Intent intent = new Intent(context, Profile.class);
-                                intent.putExtra(SharedPreferencesManager.USER_KEY, value);
+                                intent.putExtra(SharedPreferencesHelper.USER_KEY, value);
                                 (context).startActivity(intent);
                             }
 
@@ -207,8 +249,49 @@ public class ReviewReportAdapter extends RecyclerView.Adapter<ReviewReportAdapte
                         });
                     }
                 });
+                btnBlock.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        UserManager userManager = new UserManager();
+                        userManager.BlockUserById(report.getReportedItemId(), new UserRepository.UserCallBack<Void>() {
+                            @Override
+                            public void onSuccess(Void value) {
+                                Toast.makeText(context, "ban user is success", Toast.LENGTH_SHORT).show();
+                                btnIgnore.callOnClick();
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+                                Toast.makeText(context, "ban user is failure .try again another time", Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+
+                    }
+                });
             }
 
+            btnIgnore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ReportManager reportManager = new ReportManager();
+                    reportManager.DeleteReportById(report.getReportId(), new ReportRepository.DeleteReportByIdCallback() {
+                        @Override
+                        public void deleteReportByIdSuccess() {
+                            Toast.makeText(context, "delete report success", Toast.LENGTH_SHORT).show();
+                            int position = reportList.indexOf(report);
+                            notifyItemRemoved(position);
+                            reportList.remove(report);
+                        }
+
+                        @Override
+                        public void deleteReportByIdFailure(Exception e) {
+                            Toast.makeText(context, "delete report failure", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
 
         }
 

@@ -16,12 +16,16 @@ public class Post implements Serializable {
 
     private User userCreatePost;
     public Post() {}
+
     public Post(@NonNull long date, @NonNull String idUser,String link, String text) {
         this.date = date;
         this.idUser = idUser;
         this.link = link;
         this.text = text;
     }
+
+
+
 
     public long getLikes() {
         return likes;

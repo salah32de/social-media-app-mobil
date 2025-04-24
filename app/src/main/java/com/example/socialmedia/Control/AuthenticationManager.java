@@ -3,7 +3,7 @@ package com.example.socialmedia.Control;
 import android.app.Activity;
 import android.util.Log;
 
-import com.example.socialmedia.Data.Firebase.Authentication.Authentication;
+import com.example.socialmedia.Database.RemoteDatabase.Authentication.Authentication;
 import com.example.socialmedia.Model.User;
 
 public class AuthenticationManager {

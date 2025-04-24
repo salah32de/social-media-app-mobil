@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.socialmedia.Control.SharedPreferencesManager;
+import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Model.Chat;
 import com.example.socialmedia.R;
 import com.example.socialmedia.UI.Activity.Chat.MessageActivity;
@@ -66,35 +66,41 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
 
 
         public void bind(Activity activity, Context context, Chat chat) {
-            if (chat.getUserReceiver().isOnline()) {
-                isOnline.setVisibility(View.VISIBLE);
-            } else {
-                isOnline.setVisibility(View.GONE);
-            }
-
-            if (!chat.getUserReceiver().getPhotoProfile().isEmpty()) {
-                Glide.with(context).load(chat.getUserReceiver().getPhotoProfile()).circleCrop().placeholder(R.drawable.wait_download).into(imageUser);
-            } else {
-                Glide.with(context).load(R.drawable.user_cicrle_duotone).circleCrop().into(imageUser);
-            }
 
             username.setText(chat.getUserReceiver().getName());
-            lastMessage.setText(chat.getLastMessage());
+            if (chat.getLastMessage().contains("jpg"))
+                lastMessage.setText("image");
+            else
+                lastMessage.setText(chat.getLastMessage());
 
-            if (chat.getUserReceiver().isOnline())
-                isOnline.setVisibility(View.VISIBLE);
-            else isOnline.setVisibility(View.GONE);
+            if (chat.getUserReceiver() != null) {
 
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, MessageActivity.class);
-                    intent.putExtra(Chat.CHAT_KEY, chat);
-                    intent.putExtra(SharedPreferencesManager.USER_KEY, chat.getUserReceiver());
-                    (activity).startActivity(intent);
+                if (chat.getUserReceiver().isOnline()) {
+                    isOnline.setVisibility(View.VISIBLE);
+                } else {
+                    isOnline.setVisibility(View.GONE);
                 }
-            });
+
+                if (!chat.getUserReceiver().getPhotoProfile().isEmpty()) {
+                    Glide.with(context).load(chat.getUserReceiver().getPhotoProfile()).circleCrop().placeholder(R.drawable.wait_download).into(imageUser);
+                } else {
+                    Glide.with(context).load(R.drawable.user_cicrle_duotone).circleCrop().into(imageUser);
+                }
+
+                if (chat.getUserReceiver().isOnline())
+                    isOnline.setVisibility(View.VISIBLE);
+                else isOnline.setVisibility(View.GONE);
+
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, MessageActivity.class);
+                        intent.putExtra(Chat.CHAT_KEY, chat);
+                        intent.putExtra(SharedPreferencesHelper.USER_KEY, chat.getUserReceiver());
+                        (activity).startActivity(intent);
+                    }
+                });
+            }
         }
 
     }

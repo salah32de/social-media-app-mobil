@@ -13,8 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.socialmedia.Control.SharedPreferencesManager;
-import com.example.socialmedia.Model.Chat;
+import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Model.User;
 import com.example.socialmedia.R;
 import com.example.socialmedia.UI.Activity.Chat.MessageActivity;
@@ -77,7 +76,7 @@ public class ShowUserAdapter extends RecyclerView.Adapter<ShowUserAdapter.UserVi
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, Profile.class);
-                    intent.putExtra(SharedPreferencesManager.USER_KEY, user);
+                    intent.putExtra(SharedPreferencesHelper.USER_KEY, user);
                     activity.startActivity(intent);
                 }
             });
@@ -85,7 +84,7 @@ public class ShowUserAdapter extends RecyclerView.Adapter<ShowUserAdapter.UserVi
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, MessageActivity.class);
-                    intent.putExtra(SharedPreferencesManager.USER_KEY, user);
+                    intent.putExtra(SharedPreferencesHelper.USER_KEY, user);
                     ((Activity) context).startActivity(intent);
                 }
             });

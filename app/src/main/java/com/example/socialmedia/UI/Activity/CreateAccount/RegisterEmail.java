@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.socialmedia.Control.AuthenticationManager;
 import com.example.socialmedia.Model.User;
-import com.example.socialmedia.Data.Firebase.Authentication.Authentication;
 import com.example.socialmedia.R;
 import com.example.socialmedia.Control.EmailVerificationHelper;
 import com.google.android.material.textfield.TextInputEditText;

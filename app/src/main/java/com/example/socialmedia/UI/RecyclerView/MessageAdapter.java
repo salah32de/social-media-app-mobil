@@ -90,7 +90,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             } else {
                 sendMessageImage.setVisibility(View.VISIBLE);
                 sendMessageText.setVisibility(View.GONE);
-                Glide.with(context).load(message.getContent()).placeholder(R.drawable.wait_download).into(sendMessageImage);
+                Glide.with(context).load(message.getContent()).placeholder(R.drawable.edittext_background).into(sendMessageImage);
             }
             sendMessageTime.setVisibility(View.GONE);
 //            sendMessageTime.setText(message.getTimestamp());
@@ -121,7 +121,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             } else {
                 receivedMessageText.setVisibility(View.GONE);
                 receivedMessageImage.setVisibility(View.VISIBLE);
-                Glide.with(context).load(message.getContent()).placeholder(R.drawable.wait_download).into(receivedMessageImage);
+                Glide.with(context).load(message.getContent()).placeholder(R.drawable.edittext_background).into(receivedMessageImage);
             }
             receivedMessageTime.setVisibility(View.GONE);
 

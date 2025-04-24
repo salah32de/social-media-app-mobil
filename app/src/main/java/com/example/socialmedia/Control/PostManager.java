@@ -4,13 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.FriendRepository;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.NotificationRepository;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.PostRepository;
-import com.example.socialmedia.Data.Firebase.StorageDatabase.StorageFirebase;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.FriendRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.NotificationRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.PostRepository;
+import com.example.socialmedia.Database.RemoteDatabase.StorageDatabase.StorageFirebase;
 import com.example.socialmedia.Model.Notification;
 import com.example.socialmedia.Model.Post;
 import com.example.socialmedia.Model.User;
+import com.example.socialmedia.SharedPreferencesHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -111,11 +112,11 @@ public class PostManager {
 
                 int typeNotification = string.equals(PostRepository.ADD_NUM_LIKES_IN_POST) ? Notification.LIKE_POST : Notification.COMMENT_POST;
 
-                User user = SharedPreferencesManager.getUser(context);
+                User user = SharedPreferencesHelper.getUser(context);
 
                 Notification notification = new Notification(user.getId(), post.getIdPost(), typeNotification);
                 NotificationManager notificationManager = new NotificationManager();
-                notificationManager.addNotification(notification, post.getUserCreatePost().getId(), new NotificationRepository.AddNotificationCallback() {
+                notificationManager.addNotification(context,notification, post.getUserCreatePost().getId(), new NotificationRepository.AddNotificationCallback() {
                     @Override
                     public void addNotificationSuccess() {
                         Log.d(TAG, "Add Notification Success");
@@ -231,6 +232,38 @@ public class PostManager {
             @Override
             public void deletePostsFailure(Exception e) {
                 Log.d(TAG,"delete post failure .id post: "+post.getIdPost());
+            }
+        });
+    }
+
+    public void GetCountPosts(PostRepository.GetCountPosts callback){
+        postRepository.GetCountPosts(new PostRepository.GetCountPosts() {
+            @Override
+            public void onSuccess(long count) {
+                Log.d(TAG,"count posts ="+count);
+                callback.onSuccess(count);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Log.d(TAG,"get count posts failure .error: "+e.getMessage());
+                callback.onFailure(e);
+            }
+        });
+    }
+
+    public void GetAllPosts(PostRepository.GetAllPostsCallback callback){
+        postRepository.GetAllPosts(new PostRepository.GetAllPostsCallback() {
+            @Override
+            public void onSuccess(List<Post> posts) {
+                Log.d(TAG,"get all posts success .count posts ="+posts.size());
+                callback.onSuccess(posts);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Log.d(TAG,"get all posts failure .error: "+e.getMessage());
+                callback.onFailure(e);
             }
         });
     }

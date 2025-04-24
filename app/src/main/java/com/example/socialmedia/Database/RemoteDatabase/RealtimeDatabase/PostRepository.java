@@ -1,4 +1,4 @@
-package com.example.socialmedia.Data.Firebase.RealtimeDatabase;
+package com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase;
 
 import android.util.Log;
 
@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class PostRepository {
@@ -77,6 +78,7 @@ public class PostRepository {
                     Post post = dataSnapshot.getValue(Post.class);
                     post.setUserCreatePost(user);
                     list.add(0, post);
+
                 }
                 getPostsUserCallback.getPostsUserSuccess(list);
             }
@@ -96,7 +98,6 @@ public class PostRepository {
         postRef.child(string).runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData currentData) {
-                // إذا كانت قيمة الإعجابات غير موجودة، قم بتهيئتها بـ 1
                 if (currentData.getValue() == null) {
                     currentData.setValue(1);
                 } else {
@@ -149,6 +150,7 @@ public class PostRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Post post = snapshot.getValue(Post.class);
+
                 UserManager userManager = new UserManager();
                 userManager.getUserById(post.getIdUser(), new UserRepository.UserCallBack<User>() {
                     @Override
@@ -161,6 +163,8 @@ public class PostRepository {
                     public void onFailure(Exception e) {
                     }
                 });
+
+
             }
 
             @Override
@@ -184,6 +188,88 @@ public class PostRepository {
         });
     }
 
+    public void GetCountPosts(GetCountPosts callback) {
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                long count = 0;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    count += dataSnapshot.getChildrenCount();
+                }
+                callback.onSuccess(count);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                callback.onFailure(error.toException());
+            }
+        });
+    }
+
+    public void GetAllPosts(GetAllPostsCallback callback){
+        AtomicInteger count = new AtomicInteger();
+        List<Post> list = new ArrayList<>();
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()) {
+                    callback.onSuccess(list);
+                    return;
+                }
+
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    count.incrementAndGet();
+                    String userId = snapshot1.getKey();
+
+                    UserManager userManager = new UserManager();
+                    userManager.getUserById(userId, new UserRepository.UserCallBack<User>() {
+                        @Override
+                        public void onSuccess(User value) {
+                            for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
+                                Post post = snapshot2.getValue(Post.class);
+                                if (post != null) {
+                                    post.setUserCreatePost(value);
+                                    list.add(0, post); // الأحدث أولاً
+                                }
+                            }
+                            if (count.decrementAndGet() == 0) {
+                                callback.onSuccess(list);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Exception e) {
+                            if (count.decrementAndGet() == 0) {
+                                callback.onFailure(e);
+                            }
+                        }
+                    });
+                }
+
+                // في حال snapshot موجود بس مافيه بيانات
+                if (!snapshot.hasChildren()) {
+                    callback.onSuccess(list);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                callback.onFailure(error.toException());
+            }
+        });
+    }
+
+
+    public interface GetAllPostsCallback {
+        void onSuccess(List<Post> posts);
+        void onFailure(Exception e);
+    }
+    public interface GetCountPosts {
+        void onSuccess(long count);
+
+        void onFailure(Exception e);
+    }
 
     public interface GetPostsByUserIdsCallback {
         void onSuccess(List<Post> posts);

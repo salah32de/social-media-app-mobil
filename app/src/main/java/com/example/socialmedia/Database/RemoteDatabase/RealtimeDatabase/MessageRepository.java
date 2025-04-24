@@ -1,4 +1,4 @@
-package com.example.socialmedia.Data.Firebase.RealtimeDatabase;
+package com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase;
 
 import androidx.annotation.NonNull;
 

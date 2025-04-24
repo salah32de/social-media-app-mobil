@@ -14,8 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.socialmedia.Control.ReportManager;
-import com.example.socialmedia.Control.SharedPreferencesManager;
-import com.example.socialmedia.Data.Firebase.RealtimeDatabase.ReportRepository;
+import com.example.socialmedia.SharedPreferencesHelper;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ReportRepository;
 import com.example.socialmedia.Model.Report;
 import com.example.socialmedia.Model.User;
 import com.example.socialmedia.R;
@@ -75,7 +75,7 @@ public class ReportFragment extends Fragment {
         // Inflate the layout for this fragment
         inflater.inflate(R.layout.fragment_report, container, false);
 
-        User reporterUser= SharedPreferencesManager.getUser(getContext());
+        User reporterUser= SharedPreferencesHelper.getUser(getContext());
         User reportedUser=(User) getArguments().getSerializable("reporterUser");
         String reportedItemId=(String) getArguments().getSerializable("reportedItemId");
         Report.ReportItem reportItem=(Report.ReportItem) getArguments().getSerializable("reportItem");
