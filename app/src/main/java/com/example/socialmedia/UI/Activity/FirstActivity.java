@@ -1,6 +1,8 @@
 package com.example.socialmedia.UI.Activity;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -36,7 +38,11 @@ public class FirstActivity extends AppCompatActivity {
 
         if (SharedPreferencesHelper.isLogIn(getApplicationContext())) {
             User user = SharedPreferencesHelper.getUser(getApplicationContext());
-            getUserFromFirebase(user.getId());
+            if(isNetworkAvailable()){
+                getUserFromFirebase(user.getId());
+            }else{
+                goToMain();
+            }
         } else {
             goToLogin();
         }
@@ -87,6 +93,18 @@ public class FirstActivity extends AppCompatActivity {
     public void goToDashboard() {
         startActivity(new Intent(this, Dashboard.class));
         finish();
+
+    }
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getBaseContext().getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+            return capabilities != null &&
+                    (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
+        }
+        return false;
 
     }
 }

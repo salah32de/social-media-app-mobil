@@ -20,12 +20,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.socialmedia.Control.ChatManager;
-import com.example.socialmedia.Control.MessageManager;
+import com.example.socialmedia.Control.ChatsManager;
 import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Control.StorageManager;
-import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ChatRepository;
-import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.MessageRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ChatsRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.MessagesRepository;
 import com.example.socialmedia.Database.RemoteDatabase.StorageDatabase.StorageFirebase;
 import com.example.socialmedia.Model.Chat;
 import com.example.socialmedia.Model.Message;
@@ -38,7 +37,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageActivity extends AppCompatActivity {
+public class MessagesActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private Chat chat;
@@ -62,7 +61,6 @@ public class MessageActivity extends AppCompatActivity {
 
         ImageView settingButton = findViewById(R.id.setting);
         CardView deleteChatLayout = findViewById(R.id.deleteChatLayout);
-        ConstraintLayout mainLayout = findViewById(R.id.mainLayout);
         TextView deleteChat = findViewById(R.id.deleteChat);
 
 
@@ -85,21 +83,21 @@ public class MessageActivity extends AppCompatActivity {
 
         chat = (Chat) getIntent().getSerializableExtra(Chat.CHAT_KEY);
         if (chat == null) {
-            ChatManager chatManager = new ChatManager();
-            chatManager.GetChat(receivedUser.getId() + "_" + senderUser.getId(), new ChatRepository.GetChatCallBack() {
+            ChatsManager chatManager = new ChatsManager();
+            chatManager.GetChat(receivedUser.getId() + "_" + senderUser.getId(), new ChatsRepository.GetChatCallBack() {
                 @Override
                 public void onSuccess(Chat chat) {
-                    MessageActivity.this.chat = chat;
+                    MessagesActivity.this.chat = chat;
                     getMessages();
                 }
 
                 @Override
                 public void onFailure(Exception e) {
                     // إذا فشل الحصول على المحادثة بالـ ID الأول، جرب الـ ID المعكوس
-                    chatManager.GetChat(senderUser.getId() + "_" + receivedUser.getId(), new ChatRepository.GetChatCallBack() {
+                    chatManager.GetChat(senderUser.getId() + "_" + receivedUser.getId(), new ChatsRepository.GetChatCallBack() {
                         @Override
                         public void onSuccess(Chat chat) {
-                            MessageActivity.this.chat = chat;
+                            MessagesActivity.this.chat = chat;
                             getMessages();
                         }
 
@@ -135,22 +133,22 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String message = messageEditText.getText().toString();
-                ChatManager chatManager = new ChatManager();
+                ChatsManager chatManager = new ChatsManager();
 
                 if (chat == null) {
                     chat = new Chat(senderUser.getId(), receivedUser.getId(), message);
 
-                    chatManager.CreateChat(chat, new ChatRepository.CreateChatCallBack() {
+                    chatManager.CreateChat(chat, new ChatsRepository.CreateChatCallBack() {
                         @Override
                         public void onSuccess(String idChat) {
-                            Toast.makeText(MessageActivity.this, "send message success", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MessagesActivity.this, "send message success", Toast.LENGTH_SHORT).show();
                             Message m = new Message(idChat, receivedUser.getId(), senderUser.getId(), message, getCurrentTime(), Message.TEXT_TYPE);
                             sendMessage(m);
                         }
 
                         @Override
                         public void onFailure(Exception e) {
-                            Toast.makeText(MessageActivity.this, "send message failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MessagesActivity.this, "send message failed", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     });
@@ -178,17 +176,17 @@ public class MessageActivity extends AppCompatActivity {
 
         deleteChat.setOnClickListener(v -> {
             if (chat != null) {
-                ChatManager chatManager = new ChatManager();
-                chatManager.DeleteChatById(chat.getIdChat(), new ChatRepository.DeleteChatCallBack() {
+                ChatsManager chatManager = new ChatsManager();
+                chatManager.DeleteChatById(chat.getIdChat(), new ChatsRepository.DeleteChatCallBack() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(MessageActivity.this, "delete chat success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MessagesActivity.this, "delete chat success", Toast.LENGTH_SHORT).show();
                         finish();
                     }
 
                     @Override
                     public void onFailure(Exception e) {
-                        Toast.makeText(MessageActivity.this, "delete chat failure .Try again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MessagesActivity.this, "delete chat failure .Try again", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -202,8 +200,8 @@ public class MessageActivity extends AppCompatActivity {
         chat.setLastMessage(message.getContent());
         User u = chat.getUserReceiver();
         chat.setUserReceiver(null);
-        MessageManager messageManager = new MessageManager();
-        messageManager.SendMessage(getBaseContext(),chat, message, new MessageRepository.SendMessageCallBack() {
+        ChatsManager chatManager = new ChatsManager();
+        chatManager.SendMessage(getBaseContext(),chat, message, new MessagesRepository.SendMessageCallBack() {
 
             @Override
             public void onSuccess(String idMessage) {
@@ -228,8 +226,8 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     private void getMessages() {
-        MessageManager messageManager = new MessageManager();
-        messageManager.GetMessagesChat(chat.getIdChat(), new MessageRepository.GetMessagesChatCallBack() {
+        ChatsManager chatManager = new ChatsManager();
+        chatManager.GetMessagesChat(chat.getIdChat(), new MessagesRepository.GetMessagesChatCallBack() {
             @Override
             public void onSuccess(List<Message> messageLi) {
                 messageList.clear();
@@ -273,7 +271,7 @@ public class MessageActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Exception e) {
-                        Toast.makeText(MessageActivity.this, "error in upload image .try again another time", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MessagesActivity.this, "error in upload image .try again another time", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

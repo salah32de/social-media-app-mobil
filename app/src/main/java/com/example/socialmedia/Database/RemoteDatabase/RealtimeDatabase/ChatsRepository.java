@@ -19,11 +19,11 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ChatRepository {
+public class ChatsRepository {
     DatabaseReference DRef;
     FirebaseDatabase firebaseDatabase;
 
-    public ChatRepository() {
+    public ChatsRepository() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         DRef = firebaseDatabase.getReference("chat");
     }

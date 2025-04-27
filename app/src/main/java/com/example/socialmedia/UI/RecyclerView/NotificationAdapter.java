@@ -24,7 +24,7 @@ import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.PostRepo
 import com.example.socialmedia.Model.Notification;
 import com.example.socialmedia.Model.Post;
 import com.example.socialmedia.R;
-import com.example.socialmedia.UI.Activity.Chat.MessageActivity;
+import com.example.socialmedia.UI.Activity.Chat.MessagesActivity;
 import com.example.socialmedia.UI.Activity.Profile;
 import com.example.socialmedia.UI.Fragment.CommentFragment;
 
@@ -163,7 +163,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         context.startActivity(intent);
 
                     } else if (notification.getTypeNotification() == Notification.SENT_MESSAGE) {
-                        Intent intent = new Intent(context, MessageActivity.class);
+                        Intent intent = new Intent(context, MessagesActivity.class);
                         intent.putExtra(SharedPreferencesHelper.USER_KEY, notification.getUser());
                         context.startActivity(intent);
                     }

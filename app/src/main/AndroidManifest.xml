@@ -50,7 +50,7 @@
             android:name=".UI.Dashboard.Dashboard"
             android:exported="false" />
         <activity
-            android:name=".UI.Activity.Chat.MessageActivity"
+            android:name=".UI.Activity.Chat.MessagesActivity"
             android:exported="false" />
         <activity
             android:name=".UI.Activity.Chat.ChatActivity"

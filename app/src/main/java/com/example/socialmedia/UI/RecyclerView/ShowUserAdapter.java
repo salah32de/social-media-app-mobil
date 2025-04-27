@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Model.User;
 import com.example.socialmedia.R;
-import com.example.socialmedia.UI.Activity.Chat.MessageActivity;
+import com.example.socialmedia.UI.Activity.Chat.MessagesActivity;
 import com.example.socialmedia.UI.Activity.Profile;
 
 import java.util.List;
@@ -83,7 +83,7 @@ public class ShowUserAdapter extends RecyclerView.Adapter<ShowUserAdapter.UserVi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, MessageActivity.class);
+                    Intent intent = new Intent(context, MessagesActivity.class);
                     intent.putExtra(SharedPreferencesHelper.USER_KEY, user);
                     ((Activity) context).startActivity(intent);
                 }

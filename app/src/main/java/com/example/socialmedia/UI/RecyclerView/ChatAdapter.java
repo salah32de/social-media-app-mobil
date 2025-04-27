@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Model.Chat;
 import com.example.socialmedia.R;
-import com.example.socialmedia.UI.Activity.Chat.MessageActivity;
+import com.example.socialmedia.UI.Activity.Chat.MessagesActivity;
 
 import java.util.List;
 
@@ -94,7 +94,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(context, MessageActivity.class);
+                        Intent intent = new Intent(context, MessagesActivity.class);
                         intent.putExtra(Chat.CHAT_KEY, chat);
                         intent.putExtra(SharedPreferencesHelper.USER_KEY, chat.getUserReceiver());
                         (activity).startActivity(intent);

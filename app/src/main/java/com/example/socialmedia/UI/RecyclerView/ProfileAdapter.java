@@ -36,7 +36,7 @@ import com.example.socialmedia.Model.Post;
 import com.example.socialmedia.Model.Report;
 import com.example.socialmedia.Model.User;
 import com.example.socialmedia.R;
-import com.example.socialmedia.UI.Activity.Chat.MessageActivity;
+import com.example.socialmedia.UI.Activity.Chat.MessagesActivity;
 import com.example.socialmedia.UI.Activity.Profile;
 import com.example.socialmedia.UI.Fragment.CommentFragment;
 import com.example.socialmedia.UI.Fragment.ReportFragment;
@@ -172,7 +172,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 sendMessage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(context, MessageActivity.class);
+                        Intent intent = new Intent(context, MessagesActivity.class);
                         intent.putExtra(SharedPreferencesHelper.USER_KEY, userProfile);
                         (context).startActivity(intent);
                     }

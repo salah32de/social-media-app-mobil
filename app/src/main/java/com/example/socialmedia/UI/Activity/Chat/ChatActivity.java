@@ -9,12 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.socialmedia.Control.ChatManager;
+import com.example.socialmedia.Control.ChatsManager;
 import com.example.socialmedia.Control.RoomDatabaseManager;
 import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Database.LocalDatabase.Entity.ChatEntity;
 import com.example.socialmedia.Database.LocalDatabase.Entity.UserEntity;
-import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ChatRepository;
+import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ChatsRepository;
 import com.example.socialmedia.Model.Chat;
 import com.example.socialmedia.Model.User;
 import com.example.socialmedia.R;
@@ -92,10 +92,10 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        ChatManager chatManager=new ChatManager();
+        ChatsManager chatManager=new ChatsManager();
 
         if(isNetworkAvailable()){
-            chatManager.GetChatsUser(user.getId(), new ChatRepository.GetChatsUserCallBack() {
+            chatManager.GetChatsUser(user.getId(), new ChatsRepository.GetChatsUserCallBack() {
                 @Override
                 public void onSuccess(List<Chat> chat) {
                     Toast.makeText(ChatActivity.this, "asasdas", Toast.LENGTH_SHORT).show();

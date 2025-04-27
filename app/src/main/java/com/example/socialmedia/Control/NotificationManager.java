@@ -26,8 +26,6 @@ public class NotificationManager {
                 addNotificationCallback.addNotificationSuccess();
 
                 UserManager userManager=new UserManager();
-                User user= SharedPreferencesHelper.getUser(context);
-
                 userManager.UpdateInteractionCount(SharedPreferencesHelper.getUser(context).getId());
 
 

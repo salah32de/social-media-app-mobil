@@ -12,11 +12,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageRepository {
+public class MessagesRepository {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference ref;
 
-    public MessageRepository() {
+    public MessagesRepository() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         ref = firebaseDatabase.getReference("messages");
     }
