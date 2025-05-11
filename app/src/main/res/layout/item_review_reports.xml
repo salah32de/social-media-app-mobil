@@ -154,7 +154,6 @@
                     android:src="@mipmap/img4"
                     android:visibility="gone" />
 
-                <!-- الفيديو -->
                 <com.google.android.exoplayer2.ui.PlayerView
                     android:id="@+id/videoPost"
                     android:layout_width="0dp"

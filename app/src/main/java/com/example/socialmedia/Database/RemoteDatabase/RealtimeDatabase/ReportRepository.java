@@ -2,7 +2,7 @@ package com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase;
 
 import androidx.annotation.NonNull;
 
-import com.example.socialmedia.Model.Report;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Report;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;

@@ -7,9 +7,9 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
-import com.example.socialmedia.Control.UserManager;
+import com.example.socialmedia.Controller.UserManager;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.UserRepository;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 
 
 public class Myapp extends Application implements DefaultLifecycleObserver {
@@ -66,6 +66,18 @@ public class Myapp extends Application implements DefaultLifecycleObserver {
 
                     @Override
                     public void onFailure(Exception e) {
+                    }
+                });
+            }else {
+                userRepository.UpdateLastSeenTimeUser(user, time, new UserRepository.UserCallBack<Void>() {
+                    @Override
+                    public void onSuccess(Void value) {
+                        SharedPreferencesHelper.saveUser(user, getApplicationContext());
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+
                     }
                 });
             }

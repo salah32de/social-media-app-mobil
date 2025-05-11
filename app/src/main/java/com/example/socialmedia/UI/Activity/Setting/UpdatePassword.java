@@ -1,9 +1,6 @@
 package com.example.socialmedia.UI.Activity.Setting;
 
-import static androidx.core.widget.TextViewKt.addTextChangedListener;
-
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -14,12 +11,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.socialmedia.Control.AuthenticationManager;
+import com.example.socialmedia.Controller.AuthenticationManager;
 import com.example.socialmedia.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.EventListener;
 
 public class UpdatePassword extends AppCompatActivity {
 

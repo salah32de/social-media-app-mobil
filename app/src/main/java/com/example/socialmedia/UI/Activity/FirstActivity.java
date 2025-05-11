@@ -11,9 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.socialmedia.SharedPreferencesHelper;
-import com.example.socialmedia.Control.UserManager;
+import com.example.socialmedia.Controller.UserManager;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.UserRepository;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.R;
 import com.example.socialmedia.UI.Activity.LogIn.LogIn;
 import com.example.socialmedia.UI.Dashboard.Dashboard;
@@ -73,6 +73,7 @@ public class FirstActivity extends AppCompatActivity {
             public void onFailure(Exception e) {
                 if (e.getMessage().equals("user is banned")) {
                     SharedPreferencesHelper.LogOut(getApplicationContext());
+                    SharedPreferencesHelper.saveUser(null, getApplicationContext());
                     Toast.makeText(FirstActivity.this, "the account is banned", Toast.LENGTH_SHORT).show();
                 }
                 goToLogin();

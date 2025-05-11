@@ -1,4 +1,4 @@
-package com.example.socialmedia.Control;
+package com.example.socialmedia.Controller;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,10 +7,10 @@ import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ChatsRep
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.MessagesRepository;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.NotificationRepository;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.UserRepository;
-import com.example.socialmedia.Model.Chat;
-import com.example.socialmedia.Model.Message;
-import com.example.socialmedia.Model.Notification;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Chat;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Message;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Notification;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 
 import java.util.Iterator;
 import java.util.List;

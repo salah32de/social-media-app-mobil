@@ -3,10 +3,10 @@ package com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.socialmedia.Control.UserManager;
-import com.example.socialmedia.Model.Comment;
-import com.example.socialmedia.Model.Post;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Controller.UserManager;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Comment;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Post;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

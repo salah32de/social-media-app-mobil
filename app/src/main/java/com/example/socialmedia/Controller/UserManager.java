@@ -1,9 +1,9 @@
-package com.example.socialmedia.Control;
+package com.example.socialmedia.Controller;
 
 import android.util.Log;
 
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.UserRepository;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 
 import java.util.List;
 

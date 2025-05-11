@@ -1,4 +1,4 @@
-package com.example.socialmedia.Control;
+package com.example.socialmedia.Controller;
 
 import android.content.Context;
 
@@ -9,8 +9,8 @@ import com.example.socialmedia.Database.LocalDatabase.Dao.UserDao;
 import com.example.socialmedia.Database.LocalDatabase.Entity.ChatEntity;
 import com.example.socialmedia.Database.LocalDatabase.Entity.PostsSavedEntity;
 import com.example.socialmedia.Database.LocalDatabase.Entity.UserEntity;
-import com.example.socialmedia.Model.Chat;
-import com.example.socialmedia.Model.Post;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Chat;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Post;
 import com.example.socialmedia.SharedPreferencesHelper;
 
 import java.io.File;

@@ -1,10 +1,10 @@
-package com.example.socialmedia.Control;
+package com.example.socialmedia.Controller;
 
 import android.app.Activity;
 import android.util.Log;
 
 import com.example.socialmedia.Database.RemoteDatabase.Authentication.Authentication;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 
 public class AuthenticationManager {
 

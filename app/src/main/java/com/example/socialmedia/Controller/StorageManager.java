@@ -1,4 +1,4 @@
-package com.example.socialmedia.Control;
+package com.example.socialmedia.Controller;
 
 import android.net.Uri;
 import android.util.Log;

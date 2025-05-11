@@ -4,7 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -111,7 +111,6 @@ public class UserRepository {
 
     public void UpdateStateUser(String idUser, boolean state, UserCallBack<Void> callback) {
         userRef.child(idUser).child("online").setValue(state).addOnSuccessListener(aVoid -> {
-            Log.d("saomdoqmdoqw",state+"");
             callback.onSuccess(aVoid);
         }).addOnFailureListener(e -> {
             callback.onFailure(e);
@@ -119,7 +118,7 @@ public class UserRepository {
     }
 
     public void UpdateLastSeenTimeUser(User user, long time, UserCallBack<Void> callback) {
-
+        user.setLastSeenTime(time);
         userRef.child(user.getId()).child("lastSeenTime").setValue(time).addOnSuccessListener(aVoid -> {
             callback.onSuccess(aVoid);
         }).addOnFailureListener(e -> {
@@ -128,6 +127,7 @@ public class UserRepository {
     }
 
     public void UpdateTotalActiveTimeUser(User user, long time, UserCallBack<Void> callback) {
+        user.setTotalActiveTime(time - user.getLastSeenTime() + user.getTotalActiveTime());
         userRef.child(user.getId()).child("totalActiveTime").setValue(time - user.getLastSeenTime() + user.getTotalActiveTime()).addOnSuccessListener(aVoid -> {
             callback.onSuccess(aVoid);
         }).addOnFailureListener(e -> {

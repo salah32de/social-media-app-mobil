@@ -1,11 +1,15 @@
 package com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase;
 
-import com.example.socialmedia.Control.UserManager;
-import com.example.socialmedia.Model.Notification;
-import com.example.socialmedia.Model.User;
+import androidx.annotation.NonNull;
+
+import com.example.socialmedia.Controller.UserManager;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Notification;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,37 +61,45 @@ public class NotificationRepository {
     public void getNotification(String idUser, GetNotificationCallback getNotificationCallback) {
         DatabaseReference ref = DRef.child(idUser);
         List<Notification> list = new ArrayList<>();
-        ref.get().addOnSuccessListener(dataSnapshot -> {
-            AtomicInteger counter = new AtomicInteger(0);//counter for asynchronous operations
-            UserManager userManager = new UserManager();
-            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                Notification notification = snapshot.getValue(Notification.class);
-                list.add(0, notification);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot data) {
+                AtomicInteger counter = new AtomicInteger(0);//counter for asynchronous operations
+                UserManager userManager = new UserManager();
+                for (DataSnapshot snapshot : data.getChildren()) {
+                    Notification notification = snapshot.getValue(Notification.class);
+                    if (notification != null)
+                        list.add(0, notification);
 
-                counter.incrementAndGet(); // increment the counter when asynchronous operation is start
+                    counter.incrementAndGet(); // increment the counter when asynchronous operation is start
 
-                //get user create comment
-                userManager.getUserById(notification.getIdUserNotify(), new UserRepository.UserCallBack<User>() {
-                    @Override
-                    public void onSuccess(User value) {
-                        notification.setUser(value);//set the user create comment
-                        if (counter.decrementAndGet() == 0) {//if all asynchronous operations are finished
-                            getNotificationCallback.getNotificationSuccess(list);
+                    //get user create comment
+                    userManager.getUserById(notification.getIdUserNotify(), new UserRepository.UserCallBack<User>() {
+                        @Override
+                        public void onSuccess(User value) {
+                            notification.setUser(value);//set the user create comment
+                            if (counter.decrementAndGet() == 0) {//if all asynchronous operations are finished
+                                getNotificationCallback.getNotificationSuccess(list);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Exception e) {
-                        list.remove(notification); // delete the comment if get user is failed
-                        if (counter.decrementAndGet() == 0) {//if all asynchronous operations are finished
-                            getNotificationCallback.getNotificationSuccess(list);
+                        @Override
+                        public void onFailure(Exception e) {
+                            list.remove(notification); // delete the comment if get user is failed
+                            if (counter.decrementAndGet() == 0) {//if all asynchronous operations are finished
+                                getNotificationCallback.getNotificationSuccess(list);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
 
-
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                getNotificationCallback.getNotificationFailure(error.toException());
+            }
         });
+
     }
 
     public void DeleteNotification(String idUser, DeleteNotificationCallback deleteNotificationCallback) {

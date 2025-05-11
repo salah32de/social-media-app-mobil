@@ -13,11 +13,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.socialmedia.Control.AuthenticationManager;
-import com.example.socialmedia.Control.RoomDatabaseManager;
+import com.example.socialmedia.Controller.AuthenticationManager;
+import com.example.socialmedia.Controller.RoomDatabaseManager;
 import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Database.LocalDatabase.Entity.UserEntity;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.R;
 import com.example.socialmedia.UI.MainView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -62,6 +62,8 @@ public class RegisterPassword extends AppCompatActivity {
 
                     User user = (User) getIntent().getSerializableExtra("user");
                     user.setName(enterName);
+                    user.setActive(true);
+                    user.setOnline(true);
                     AuthenticationManager authManager=new AuthenticationManager(getActivity());
 
                     authManager.addUser(getActivity(),user,enterPasswordText,new AuthenticationManager.authCallBack() {

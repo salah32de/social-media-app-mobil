@@ -16,11 +16,11 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.socialmedia.Control.PostManager;
-import com.example.socialmedia.SharedPreferencesHelper;
-import com.example.socialmedia.Model.Post;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Controller.PostManager;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Post;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.R;
+import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.UI.Activity.Chat.ChatActivity;
 import com.example.socialmedia.UI.Activity.NotificationActivity;
 import com.example.socialmedia.UI.Activity.Setting.SettingActivity;
@@ -59,6 +59,7 @@ public class MainView extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                findViewById(R.id.searchFragment).setVisibility(View.VISIBLE);
                 SearchFragment searchFragment = new SearchFragment();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -122,6 +123,7 @@ public class MainView extends AppCompatActivity {
         });
 
     }
+
     private void hideVisibleReportLayouts() {
         int childCount = postRecyclerView.getChildCount();
 
@@ -130,14 +132,14 @@ public class MainView extends AppCompatActivity {
             View reportLayout = child.findViewById(R.id.reportLayout);
             View deletePostLayout = null;
             try {
-                deletePostLayout=child.findViewById(R.id.deletePostLayout);
-            }catch (Exception e){
+                deletePostLayout = child.findViewById(R.id.deletePostLayout);
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
             if (reportLayout != null) {
                 reportLayout.setVisibility(GONE);
             }
-            if(deletePostLayout!=null)deletePostLayout.setVisibility(GONE);
+            if (deletePostLayout != null) deletePostLayout.setVisibility(GONE);
         }
     }
 

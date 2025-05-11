@@ -2,7 +2,7 @@ package com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase;
 
 import androidx.annotation.NonNull;
 
-import com.example.socialmedia.Model.Chat;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Chat;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -13,6 +13,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -65,21 +66,20 @@ public class ChatsRepository {
     }
 
     public void GetChatsUser(String idUser, GetChatsUserCallBack callBack) {
-
-        Query query1 = DRef.orderByChild("idUser1").startAt(idUser);
+        Query query1 = DRef.orderByChild("idUser1").equalTo(idUser);
         Query query2 = DRef.orderByChild("idUser2").equalTo(idUser);
 
         AtomicInteger count = new AtomicInteger(2);
         AtomicBoolean hasFailure = new AtomicBoolean(false);
-        Set<Chat> chats = new HashSet<>();
+        HashMap<String, Chat> chatMap = new HashMap<>();
 
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Chat chat = dataSnapshot.getValue(Chat.class);
-                    if (chat != null) {
-                        chats.add(chat);
+                    if (chat != null && chat.getIdChat() != null) {
+                        chatMap.put(chat.getIdChat(), chat);
                     }
                 }
                 setChat();
@@ -95,19 +95,20 @@ public class ChatsRepository {
 
             private void setChat() {
                 if (count.decrementAndGet() == 0) {
-                    if (hasFailure.get() && chats.isEmpty()) {
+                    if (hasFailure.get() && chatMap.isEmpty()) {
                         callBack.onFailure(new Exception("Both queries failed."));
                     } else {
-                        List<Chat> chatList = new ArrayList<>(chats);
+                        List<Chat> chatList = new ArrayList<>(chatMap.values());
                         callBack.onSuccess(chatList);
                     }
                 }
             }
         };
 
-        query1.addValueEventListener(eventListener);
-        query2.addValueEventListener(eventListener);
+        query1.addListenerForSingleValueEvent(eventListener);
+        query2.addListenerForSingleValueEvent(eventListener);
     }
+
 
 
     public void DeleteChatById(String idChat, DeleteChatCallBack callBack) {

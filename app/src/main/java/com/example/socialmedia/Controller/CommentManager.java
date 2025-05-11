@@ -1,4 +1,4 @@
-package com.example.socialmedia.Control;
+package com.example.socialmedia.Controller;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,10 +8,10 @@ import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.CommentR
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.NotificationRepository;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.PostRepository;
 import com.example.socialmedia.Database.RemoteDatabase.StorageDatabase.StorageFirebase;
-import com.example.socialmedia.Model.Comment;
-import com.example.socialmedia.Model.Notification;
-import com.example.socialmedia.Model.Post;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Comment;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Notification;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Post;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.SharedPreferencesHelper;
 
 import java.util.List;

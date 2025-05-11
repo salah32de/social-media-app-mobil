@@ -4,10 +4,10 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.socialmedia.Control.StorageManager;
-import com.example.socialmedia.Control.UserManager;
-import com.example.socialmedia.Model.Post;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Controller.StorageManager;
+import com.example.socialmedia.Controller.UserManager;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Post;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;

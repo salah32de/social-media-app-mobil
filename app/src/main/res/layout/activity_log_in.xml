@@ -104,5 +104,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:cornerRadius="20dp"
+        android:visibility="gone"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

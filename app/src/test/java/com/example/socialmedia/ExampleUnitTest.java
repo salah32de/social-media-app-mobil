@@ -5,7 +5,7 @@ import static org.junit.Assert.fail;
 
 import android.util.Log;
 
-import com.example.socialmedia.Control.ReportManager;
+import com.example.socialmedia.Controller.ReportManager;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ReportRepository;
 
 import org.junit.Test;

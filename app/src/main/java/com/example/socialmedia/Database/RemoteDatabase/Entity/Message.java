@@ -1,4 +1,4 @@
-package com.example.socialmedia.Model;
+package com.example.socialmedia.Database.RemoteDatabase.Entity;
 
 public class Message {
     public static final String TEXT_TYPE = "textType";

@@ -1,11 +1,10 @@
-package com.example.socialmedia.Control;
+package com.example.socialmedia.Controller;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.NotificationRepository;
-import com.example.socialmedia.Model.Notification;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Notification;
 import com.example.socialmedia.SharedPreferencesHelper;
 
 import java.util.List;

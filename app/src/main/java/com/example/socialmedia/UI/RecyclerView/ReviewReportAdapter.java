@@ -19,17 +19,17 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.socialmedia.Control.PostManager;
-import com.example.socialmedia.Control.ReportManager;
-import com.example.socialmedia.SharedPreferencesHelper;
-import com.example.socialmedia.Control.UserManager;
+import com.example.socialmedia.Controller.PostManager;
+import com.example.socialmedia.Controller.ReportManager;
+import com.example.socialmedia.Controller.UserManager;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.PostRepository;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ReportRepository;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.UserRepository;
-import com.example.socialmedia.Model.Post;
-import com.example.socialmedia.Model.Report;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Post;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Report;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.R;
+import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.UI.Activity.Profile;
 import com.example.socialmedia.UI.Fragment.CommentFragment;
 import com.google.android.exoplayer2.MediaItem;
@@ -128,66 +128,71 @@ public class ReviewReportAdapter extends RecyclerView.Adapter<ReviewReportAdapte
                 showItemReported.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        PostManager postManager = new PostManager();
-                        postManager.GetPostById(report.getReportedItemId(), new PostRepository.GetPostByIdCallback() {
-                            @Override
-                            public void getPostByIdSuccess(Post post) {
-                                postLayout.setVisibility(View.VISIBLE);
-                                if (!post.getUserCreatePost().getPhotoProfile().isEmpty())
-                                    Glide.with(context).load(post.getUserCreatePost().getPhotoProfile()).circleCrop().placeholder(R.drawable.wait_download).into(imageProfile);
-                                if (post.getLink().contains(".mp4")) {
-                                    imagePost.setVisibility(View.GONE);
-                                    videoPost.setVisibility(View.VISIBLE);
+                        if (postLayout.getVisibility() == View.VISIBLE) {
+                            postLayout.setVisibility(View.GONE);
+                            showItemReported.setText("show item reported");
+                        } else {
+                            showItemReported.setText("hide item reported");
+                            PostManager postManager = new PostManager();
+                            postManager.GetPostById(report.getReportedItemId(), new PostRepository.GetPostByIdCallback() {
+                                @Override
+                                public void getPostByIdSuccess(Post post) {
+                                    postLayout.setVisibility(View.VISIBLE);
+                                    if (!post.getUserCreatePost().getPhotoProfile().isEmpty())
+                                        Glide.with(context).load(post.getUserCreatePost().getPhotoProfile()).circleCrop().placeholder(R.drawable.wait_download).into(imageProfile);
+                                    if (post.getLink().contains(".mp4")) {
+                                        imagePost.setVisibility(View.GONE);
+                                        videoPost.setVisibility(View.VISIBLE);
 
 
-                                    MediaItem mediaItem = MediaItem.fromUri(post.getLink());
-                                    player.setMediaItem(mediaItem);
-                                    player.prepare();
+                                        MediaItem mediaItem = MediaItem.fromUri(post.getLink());
+                                        player.setMediaItem(mediaItem);
+                                        player.prepare();
 
 
-                                } else if (post.getLink().contains(".jpg") || post.getLink().contains(".png")) {
-                                    videoPost.setVisibility(View.GONE);
-                                    imagePost.setVisibility(View.VISIBLE);
-                                    Glide.with(context).load(post.getLink()).placeholder(R.drawable.edittext_background).into(imagePost);
-                                } else {
-                                    imagePost.setVisibility(View.GONE);
-                                    videoPost.setVisibility(View.GONE);
+                                    } else if (post.getLink().contains(".jpg") || post.getLink().contains(".png")) {
+                                        videoPost.setVisibility(View.GONE);
+                                        imagePost.setVisibility(View.VISIBLE);
+                                        Glide.with(context).load(post.getLink()).placeholder(R.drawable.edittext_background).into(imagePost);
+                                    } else {
+                                        imagePost.setVisibility(View.GONE);
+                                        videoPost.setVisibility(View.GONE);
+                                    }
+
+                                    textPost.setText(post.getText());
+                                    nameUser.setText(post.getUserCreatePost().getName());
+                                    datePublish.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(post.getDate()));
+                                    //button
+                                    like.setText(post.getLikes() + "");
+                                    comment.setText(post.getNumComments() + "");
+
+
+                                    comment.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            View fragment = ((AppCompatActivity) context).findViewById(R.id.CommentFragment);
+                                            fragment.setVisibility(View.VISIBLE);
+                                            FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+                                            FragmentTransaction transaction = fragmentManager.beginTransaction();
+                                            CommentFragment commentFragment = new CommentFragment();
+                                            Bundle bundle = new Bundle();
+                                            bundle.putSerializable("post", post);
+                                            commentFragment.setArguments(bundle);
+                                            transaction.replace(R.id.CommentFragment, commentFragment);
+                                            transaction.addToBackStack(null);
+                                            transaction.commit();
+                                        }
+                                    });
+
                                 }
 
-                                textPost.setText(post.getText());
-                                nameUser.setText(post.getUserCreatePost().getName());
-                                datePublish.setText(new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(post.getDate()));
-                                //button
-                                like.setText(post.getLikes() + "");
-                                comment.setText(post.getNumComments() + "");
+                                @Override
+                                public void getPostByIdFailure(Exception e) {
+                                    Toast.makeText(context, "get reported item is failed ", Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
-
-                                comment.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        View fragment = ((AppCompatActivity) context).findViewById(R.id.CommentFragment);
-                                        fragment.setVisibility(View.VISIBLE);
-                                        FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-                                        FragmentTransaction transaction = fragmentManager.beginTransaction();
-                                        CommentFragment commentFragment = new CommentFragment();
-                                        Bundle bundle = new Bundle();
-                                        bundle.putSerializable("post", post);
-                                        commentFragment.setArguments(bundle);
-                                        transaction.replace(R.id.CommentFragment, commentFragment);
-                                        transaction.addToBackStack(null);
-                                        transaction.commit();
-                                    }
-                                });
-
-                            }
-
-                            @Override
-                            public void getPostByIdFailure(Exception e) {
-                                Toast.makeText(context, "get reported item is failed ", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-
+                        }
                     }
                 });
 

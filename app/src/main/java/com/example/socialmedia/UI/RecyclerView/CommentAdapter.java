@@ -16,12 +16,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.socialmedia.Control.CommentManager;
-import com.example.socialmedia.Control.PostManager;
+import com.example.socialmedia.Controller.CommentManager;
+import com.example.socialmedia.Controller.PostManager;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.CommentRepository;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.PostRepository;
-import com.example.socialmedia.Model.Comment;
-import com.example.socialmedia.Model.Post;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Comment;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Post;
 import com.example.socialmedia.R;
 import com.example.socialmedia.UI.Fragment.CommentFragment;
 import com.google.android.exoplayer2.MediaItem;
@@ -273,7 +273,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             // download the image comment if exist
             if (comment.getLink() != null && !comment.getLink().isEmpty()) {
                 imageComment.setVisibility(View.VISIBLE);
-                Glide.with(context).load(comment.getLink()).placeholder(R.drawable.wait_download).into(imageComment);
+                Glide.with(context).load(comment.getLink()).placeholder(R.drawable.edittext_background).into(imageComment);
             } else {
                 imageComment.setVisibility(View.GONE);
             }

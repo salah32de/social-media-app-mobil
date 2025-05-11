@@ -18,10 +18,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.example.socialmedia.Control.AuthenticationManager;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Controller.AuthenticationManager;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.R;
-import com.example.socialmedia.Control.EmailVerificationHelper;
+import com.example.socialmedia.Controller.EmailVerificationHelper;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 

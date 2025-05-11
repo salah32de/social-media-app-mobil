@@ -22,12 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
-import com.example.socialmedia.Control.CommentManager;
+import com.example.socialmedia.Controller.CommentManager;
 import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.CommentRepository;
-import com.example.socialmedia.Model.Comment;
-import com.example.socialmedia.Model.Post;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Comment;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Post;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.R;
 import com.example.socialmedia.UI.RecyclerView.CommentAdapter;
 

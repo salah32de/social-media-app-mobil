@@ -24,11 +24,11 @@ import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
-import com.example.socialmedia.Control.PostManager;
+import com.example.socialmedia.Controller.PostManager;
 import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.PostRepository;
-import com.example.socialmedia.Model.Post;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Post;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.R;
 
 import android.widget.MediaController;
@@ -120,6 +120,7 @@ public class CreatePostFragment extends Fragment {
                         progressBar.setVisibility(View.VISIBLE);
                         buttonPost.setVisibility(View.GONE);
 
+                        view.setClickable(false);
                         //get user information from shared preferences
                         User user = SharedPreferencesHelper.getUser(getContext());
 

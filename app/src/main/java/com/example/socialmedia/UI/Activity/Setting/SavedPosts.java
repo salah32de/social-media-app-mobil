@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.socialmedia.Control.RoomDatabaseManager;
+import com.example.socialmedia.Controller.RoomDatabaseManager;
 import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Database.LocalDatabase.Entity.PostsSavedEntity;
 import com.example.socialmedia.R;

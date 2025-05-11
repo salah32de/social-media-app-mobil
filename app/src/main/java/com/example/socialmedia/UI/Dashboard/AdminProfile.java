@@ -14,9 +14,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.bumptech.glide.Glide;
 import com.example.socialmedia.SharedPreferencesHelper;
-import com.example.socialmedia.Control.UserManager;
+import com.example.socialmedia.Controller.UserManager;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.UserRepository;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.R;
 import com.example.socialmedia.UI.Activity.LogIn.LogIn;
 import com.example.socialmedia.UI.Activity.Setting.UpdateInformationActivity;

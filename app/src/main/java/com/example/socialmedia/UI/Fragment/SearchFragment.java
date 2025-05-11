@@ -8,14 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.socialmedia.Control.UserManager;
+import com.example.socialmedia.Controller.UserManager;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.UserRepository;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.R;
 import com.example.socialmedia.UI.RecyclerView.ShowUserAdapter;
 
@@ -109,6 +110,15 @@ public class SearchFragment extends Fragment {
                     }
                 };
                 handler.postDelayed(searchRunnable[0], 500); // pause 0.5 seconds
+            }
+        });
+
+        ImageView back=view.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().findViewById(R.id.searchFragment).setVisibility(View.GONE);
+                getActivity().getSupportFragmentManager().popBackStack();
             }
         });
 

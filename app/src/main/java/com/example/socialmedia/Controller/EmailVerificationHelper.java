@@ -1,4 +1,4 @@
-package com.example.socialmedia.Control;
+package com.example.socialmedia.Controller;
 
 import java.util.Properties;
 import java.util.Random;
@@ -15,8 +15,8 @@ import jakarta.mail.internet.MimeMessage;
 
 public class EmailVerificationHelper {
 
-    private static final String FROM_EMAIL = "@gmail.com"; // Email used to send code verification
-    private static final String APP_PASSWORD = "";  //  App Password
+    private static final String FROM_EMAIL = "socialmediaappmobile@gmail.com"; // Email used to send code verification
+    private static final String APP_PASSWORD = "hhng yufj pfvm dsiz";  //  App Password
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public String generateVerificationCode() {

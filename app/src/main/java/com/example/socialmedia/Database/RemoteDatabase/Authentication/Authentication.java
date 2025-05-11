@@ -5,8 +5,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.socialmedia.Control.AuthenticationManager;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Controller.AuthenticationManager;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;

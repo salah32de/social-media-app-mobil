@@ -12,11 +12,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.example.socialmedia.Control.AuthenticationManager;
+import com.example.socialmedia.Controller.AuthenticationManager;
 import com.example.socialmedia.SharedPreferencesHelper;
-import com.example.socialmedia.Control.UserManager;
+import com.example.socialmedia.Controller.UserManager;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.UserRepository;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.R;
 import com.example.socialmedia.UI.Activity.LogIn.LogIn;
 

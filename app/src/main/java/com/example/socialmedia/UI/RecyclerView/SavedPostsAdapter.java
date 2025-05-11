@@ -13,15 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.socialmedia.Control.RoomDatabaseManager;
+import com.example.socialmedia.Controller.RoomDatabaseManager;
 import com.example.socialmedia.Database.LocalDatabase.Entity.PostsSavedEntity;
 import com.example.socialmedia.R;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.PlayerView;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;

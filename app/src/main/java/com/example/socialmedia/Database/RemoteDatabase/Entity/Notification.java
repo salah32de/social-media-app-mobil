@@ -1,4 +1,4 @@
-package com.example.socialmedia.Model;
+package com.example.socialmedia.Database.RemoteDatabase.Entity;
 
 public class Notification {
     public static final int LIKE_POST = 1;

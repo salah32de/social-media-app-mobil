@@ -9,14 +9,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.socialmedia.Control.PostManager;
-import com.example.socialmedia.Control.ReportManager;
+import com.example.socialmedia.Controller.PostManager;
+import com.example.socialmedia.Controller.ReportManager;
 import com.example.socialmedia.SharedPreferencesHelper;
-import com.example.socialmedia.Control.UserManager;
+import com.example.socialmedia.Controller.UserManager;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.PostRepository;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ReportRepository;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.UserRepository;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.R;
 
 public class Dashboard extends AppCompatActivity {

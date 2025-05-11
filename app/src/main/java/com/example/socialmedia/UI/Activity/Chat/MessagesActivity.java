@@ -15,21 +15,20 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.socialmedia.Control.ChatsManager;
-import com.example.socialmedia.SharedPreferencesHelper;
-import com.example.socialmedia.Control.StorageManager;
+import com.example.socialmedia.Controller.ChatsManager;
+import com.example.socialmedia.Controller.StorageManager;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Chat;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Message;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ChatsRepository;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.MessagesRepository;
 import com.example.socialmedia.Database.RemoteDatabase.StorageDatabase.StorageFirebase;
-import com.example.socialmedia.Model.Chat;
-import com.example.socialmedia.Model.Message;
-import com.example.socialmedia.Model.User;
 import com.example.socialmedia.R;
+import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.UI.RecyclerView.MessageAdapter;
 
 import java.time.LocalTime;
@@ -62,8 +61,6 @@ public class MessagesActivity extends AppCompatActivity {
         ImageView settingButton = findViewById(R.id.setting);
         CardView deleteChatLayout = findViewById(R.id.deleteChatLayout);
         TextView deleteChat = findViewById(R.id.deleteChat);
-
-
 
 
         settingButton.setOnClickListener(v -> {
@@ -134,8 +131,9 @@ public class MessagesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String message = messageEditText.getText().toString();
                 ChatsManager chatManager = new ChatsManager();
-
+                String chatId = "";
                 if (chat == null) {
+
                     chat = new Chat(senderUser.getId(), receivedUser.getId(), message);
 
                     chatManager.CreateChat(chat, new ChatsRepository.CreateChatCallBack() {
@@ -162,7 +160,7 @@ public class MessagesActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         linearLayoutManager.setReverseLayout(false);
         messagesRecyclerView.setLayoutManager(linearLayoutManager);
-        MessageAdapter messageAdapter = new MessageAdapter(getBaseContext(), receivedUser, messageList);
+        MessageAdapter messageAdapter = new MessageAdapter(MessagesActivity.this, receivedUser, messageList);
         messagesRecyclerView.setAdapter(messageAdapter);
 
 
@@ -201,7 +199,7 @@ public class MessagesActivity extends AppCompatActivity {
         User u = chat.getUserReceiver();
         chat.setUserReceiver(null);
         ChatsManager chatManager = new ChatsManager();
-        chatManager.SendMessage(getBaseContext(),chat, message, new MessagesRepository.SendMessageCallBack() {
+        chatManager.SendMessage(getBaseContext(), chat, message, new MessagesRepository.SendMessageCallBack() {
 
             @Override
             public void onSuccess(String idMessage) {

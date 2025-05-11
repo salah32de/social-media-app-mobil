@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,19 +23,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.socialmedia.Control.FriendManager;
-import com.example.socialmedia.Control.NotificationManager;
-import com.example.socialmedia.Control.PostManager;
-import com.example.socialmedia.Control.RoomDatabaseManager;
+import com.example.socialmedia.Controller.FriendManager;
+import com.example.socialmedia.Controller.NotificationManager;
+import com.example.socialmedia.Controller.PostManager;
+import com.example.socialmedia.Controller.RoomDatabaseManager;
 import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.FriendRepository;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.NotificationRepository;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.PostRepository;
-import com.example.socialmedia.Model.Friend;
-import com.example.socialmedia.Model.Notification;
-import com.example.socialmedia.Model.Post;
-import com.example.socialmedia.Model.Report;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Friend;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Notification;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Post;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Report;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.R;
 import com.example.socialmedia.UI.Activity.Chat.MessagesActivity;
 import com.example.socialmedia.UI.Activity.Profile;
@@ -148,6 +149,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
             });
 
+            Log.d("alspdlpasdsa",user.getPhotoProfile().isEmpty()+"");
 
             if (!userProfile.getPhotoProfile().isEmpty())
                 Glide.with(context).load(userProfile.getPhotoProfile()).circleCrop().placeholder(R.drawable.wait_download).into(imageProfile);

@@ -1,4 +1,4 @@
-package com.example.socialmedia.Model;
+package com.example.socialmedia.Database.RemoteDatabase.Entity;
 
 import java.io.Serializable;
 

@@ -13,11 +13,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.socialmedia.Control.ReportManager;
+import com.example.socialmedia.Controller.ReportManager;
 import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ReportRepository;
-import com.example.socialmedia.Model.Report;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Report;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;

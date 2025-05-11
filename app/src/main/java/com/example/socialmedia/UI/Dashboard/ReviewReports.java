@@ -1,15 +1,16 @@
 package com.example.socialmedia.UI.Dashboard;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.socialmedia.Control.ReportManager;
+import com.example.socialmedia.Controller.ReportManager;
 import com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase.ReportRepository;
-import com.example.socialmedia.Model.Report;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Report;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.R;
 import com.example.socialmedia.UI.RecyclerView.ReviewReportAdapter;
 
@@ -17,12 +18,16 @@ import java.util.List;
 
 public class ReviewReports extends AppCompatActivity {
     private User admen;
+    private ImageView back;
     private List<Report> reportList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_reports);
+
+        back = findViewById(R.id.back);
+        back.setOnClickListener(v -> finish());
 
         RecyclerView recyclerView = findViewById(R.id.reports_recycler);
 

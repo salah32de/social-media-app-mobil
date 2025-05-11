@@ -12,9 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.socialmedia.Model.Message;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Message;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.example.socialmedia.R;
+import com.example.socialmedia.SharedPreferencesHelper;
 import com.example.socialmedia.UI.Activity.Profile;
 
 import java.util.List;
@@ -135,7 +136,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
             receiverProfileImage.setOnClickListener(click -> {
                 Intent intent = new Intent(context, Profile.class);
-                intent.putExtra("userId", user);
+                intent.putExtra(SharedPreferencesHelper.USER_KEY, user);
                 context.startActivity(intent);
 
             });

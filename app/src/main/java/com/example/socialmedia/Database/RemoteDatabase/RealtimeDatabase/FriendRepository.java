@@ -2,9 +2,9 @@ package com.example.socialmedia.Database.RemoteDatabase.RealtimeDatabase;
 
 import androidx.annotation.NonNull;
 
-import com.example.socialmedia.Control.UserManager;
-import com.example.socialmedia.Model.Friend;
-import com.example.socialmedia.Model.User;
+import com.example.socialmedia.Controller.UserManager;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.Friend;
+import com.example.socialmedia.Database.RemoteDatabase.Entity.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
