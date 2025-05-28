@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurfaceVariant"
+
+    >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/postProfileRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/CommentFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never"
+        android:background="?attr/colorSurfaceVariant"
+            android:visibility="gone"
+
+        />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/reportFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never"
+        android:background="?attr/colorSurfaceVariant"
+        android:visibility="gone"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

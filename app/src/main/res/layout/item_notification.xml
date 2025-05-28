@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemNotification"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/edittext_background"
+    android:layout_marginBottom="4dp"
+    android:backgroundTint="?attr/colorSurface">
+
+    <ImageView
+        android:id="@+id/imageUser"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:padding="8dp"
+        android:src="@drawable/user_cicrle_duotone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textNotification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="notification "
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="18dp"
+        app:layout_constraintStart_toEndOf="@id/imageUser"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</LinearLayout>
